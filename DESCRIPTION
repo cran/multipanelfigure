@@ -1,8 +1,8 @@
 Package: multipanelfigure
 Type: Package
 Title: Infrastructure to Assemble Multi-Panel Figures (from Grobs)
-Version: 0.8.2
-Date: 2016-06-12
+Version: 0.8.3
+Date: 2016-07-06
 Author: Johannes Graumann [cre, aut],
     Richard Cotton [ctb]
 Maintainer: Johannes Graumann <jog2030@qatar-med.cornell.edu>
@@ -17,7 +17,7 @@ Imports: assertive.base (>= 0.0-5), assertive.files (>= 0.0-2),
         assertive.numbers (>= 0.0-1), assertive.properties (>= 0.0-2),
         assertive.types (>= 0.0-2), ggplot2 (>= 2.1.0), grid,
         gridGraphics (>= 0.1-5), gtable (>= 0.2.0), jpeg (>= 0.1-8),
-        magrittr (>= 1.5), png (>= 0.1-7), rsvg (<= 0.5), stats, tiff
+        magrittr (>= 1.5), png (>= 0.1-7), rsvg (>= 0.5), stats, tiff
         (>= 0.1-5), utils
 Suggests: grDevices, lattice (>= 0.20-33), roxygen2 (>= 5.0.1),
         VennDiagram (>= 1.6.16)
@@ -25,6 +25,6 @@ License: GPL (>= 3)
 RoxygenNote: 5.0.1
 LazyData: TRUE
 NeedsCompilation: no
-Packaged: 2016-06-12 08:43:22 UTC; rjc2003
+Packaged: 2016-07-06 18:23:56 UTC; balin
 Repository: CRAN
-Date/Publication: 2016-06-12 17:23:00
+Date/Publication: 2016-07-06 23:28:30
