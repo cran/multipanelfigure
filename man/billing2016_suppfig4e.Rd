@@ -51,4 +51,3 @@ Supplementary figures available at:
 \seealso{
 \code{\link{billing2016_suppfig4g}}
 }
-

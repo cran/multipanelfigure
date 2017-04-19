@@ -1,19 +1,38 @@
-# See UnitTable in https://svn.r-project.org/R/trunk/src/library/grid/src/unit.c
-GRID_UNITS <- c("npc", "cm", "inches", "lines", "native", "null", "snpc", "mm", "points", "picas", "bigpts", "dida", "cicero", "scaledpts", "strwidth", "strheight", "strascent", "strdescent", "char", "grobx", "groby", "grobwidth", "grobheight", "grobascent", "grobdescent", "mylines", "mychar", "mystrwidth", "mystrheight", "centimetre", "centimetres", "centimeter", "centimeters", "in", "inch", "line", "millimetre", "millimetres", "millimeter", "millimeters", "point", "pt")
+# The complete, canonical list of grid units is found in UnitTable in
+# https://svn.r-project.org/R/trunk/src/library/grid/src/unit.c
+# GRID_UNITS contains all those units, except the following, which are not
+# supported:
+# null
+# snpc
+# strwidth
+# strheight
+# strascent
+# strdescent
+# grobx
+# groby
+# grobwidth
+# grobheight
+# grobascent
+# grobdescent
+# mylines
+# mychar
+# mystrwidth
+# mystrheight
+GRID_UNITS <- c("npc", "cm", "inches", "lines", "native", "snpc", "mm", "points", "picas", "bigpts", "dida", "cicero", "scaledpts", "char", "centimetre", "centimetres", "centimeter", "centimeters", "in", "inch", "line", "millimetre", "millimetres", "millimeter", "millimeters", "point", "pt")
 
-#' Is the input a valid unit type?
+#' Is the input a supported unit type?
 #'
-#' Check if the input is a valid unit for the \code{grid} package.
+#' Check if the input is a supported unit for the \code{grid} package.
 #' @param x Input to check.
 #' @param Not intended to be called directly.
-#' @return \code{is_a_valid_unit_type} returns \code{TRUE} if the input is a
-#' valid unit type.  \code{assert_is_a_valid_unit_type} throws an error in the
+#' @return \code{is_a_supported_unit_type} returns \code{TRUE} if the input is a
+#' supported unit type.  \code{assert_is_a_supported_unit_type} throws an error in the
 #' event of failure.
 #' @noRd
 #' @importFrom assertive.base get_name_in_parent
 #' @importFrom assertive.base false
 #' @importFrom assertive.types is_a_string
-is_a_valid_unit_type <- function(x, .xname = get_name_in_parent(x))
+is_a_supported_unit_type <- function(x, .xname = get_name_in_parent(x))
 {
   # For more general use, this should be vectorised, but this is intended for
   # use only with multipanelfigure, which demands single unit, so the scalar
@@ -24,17 +43,17 @@ is_a_valid_unit_type <- function(x, .xname = get_name_in_parent(x))
   }
   if(!x %in% GRID_UNITS)
   {
-    return(false("%s (= '%s') is not a valid unit.", .xname, x))
+    return(false("%s (= '%s') is not a supported unit.", .xname, x))
   }
   TRUE
 }
 
 #' @importFrom assertive.base assert_engine
 #' @importFrom assertive.base get_name_in_parent
-assert_is_a_valid_unit_type <- function(x, severity = getOption("assertive.severity", "stop"))
+assert_is_a_supported_unit_type <- function(x, severity = getOption("assertive.severity", "stop"))
 {
   assert_engine(
-    is_a_valid_unit_type,
+    is_a_supported_unit_type,
     x,
     .xname = get_name_in_parent(x),
     severity = severity

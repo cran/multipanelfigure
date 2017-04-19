@@ -13,4 +13,3 @@ assert_is_multipanelfigure(x)
 Checks that the input is of class \code{multipanelfigure} and has the
 appropriate attributes.
 }
-

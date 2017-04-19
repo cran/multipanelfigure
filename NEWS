@@ -1,0 +1,4 @@
+0.8.4 Added support for importing GIFs into panels.
+      Different scaling options for image panels.
+0.8.3 Bug fix release to support latest version of rsvg package.
+0.8.2 First public release.

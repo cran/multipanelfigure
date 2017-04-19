@@ -39,11 +39,11 @@ Or you can specify widths and heights of individual columns and rows.
 
 ```{r}
 figure2 <- multi_panel_figure(
-  widths = c(20, 30, 40),
-  heights = c(10, 20, 30))
+  width = c(20, 30, 40),
+  height = c(10, 20, 30))
 ```
 
-When no panels are filled, printing the figure (by typing its name) displays the layout.  Notice that by default a 5 mm spacer is included between rows and between columns.  (This can be adjusted using `multi_panel_figure`'s `inter_row_spacing` and `inter_column_spacing` arguments.)
+When no panels are filled, printing the figure (by typing its name) displays the layout.  Notice that by default a 5 mm spacer is included between rows and between columns.  (This can be adjusted using `multi_panel_figure`'s `row_spacing` and `column_spacing` arguments.)
 
 ```{r}
 figure1
@@ -53,7 +53,7 @@ figure1
 
 ## Adding panels
 
-Plots and images are added into the figure by filling panels using `add_panel`.
+Plots and images are added into the figure by filling panels using `fill_panel`.
 
 *lattice* plot variables are added directly. The syntax is cleanest using *magrittr* pipes:
 
@@ -61,7 +61,7 @@ Plots and images are added into the figure by filling panels using `add_panel`.
 library(lattice)
 library(magrittr)
 a_lattice_plot <- xyplot(height ~ age, Loblolly)
-figure1 %<>% add_panel(a_lattice_plot)
+figure1 %<>% fill_panel(a_lattice_plot)
 ```
 
 *ggplot2* plots variables are also added directly.  In this case, to put it in the second column from the left (top row), specify the `left_panel` argument.
@@ -70,7 +70,7 @@ figure1 %<>% add_panel(a_lattice_plot)
 library(ggplot2)
 library(magrittr)
 a_ggplot <- ggplot(Loblolly, aes(age, height)) + geom_point()
-figure1 %<>% add_panel(a_ggplot, left_panel = 2)
+figure1 %<>% fill_panel(a_ggplot, column = 2)
 ```
 
 Plots created using base graphics must be converted to grid-based plots and captured using `capture_base_plot`.
@@ -79,25 +79,25 @@ Plots created using base graphics must be converted to grid-based plots and capt
 a_base_plot <- capture_base_plot(
   with(Loblolly, plot(age, height))
 )
-figure1 %<>% add_panel(a_base_plot, left_panel = 3)
+figure1 %<>% fill_panel(a_base_plot, column = 3)
 ```
 
-*grid* grobs are also added directly.  Plots and images can be made to span multiple panels by setting `right_panel` to be larger than `left_panel` or `bottom_panel` to be larger than `top_panel`.  The following example adds the grob to the second and third rows from the top (first column).
+*grid* grobs are also added directly.  Plots and images can be made to span multiple panels by defining starting and stopping columns using `column` and/or starting and stopping rows using `row`. The following example adds the grob to the second and third rows from the top (first column).
 
 ```{r}
 library(grid)
 a_grob <- linesGrob(arrow = arrow())
-figure1 %<>% add_panel(a_grob, top_panel = 2, bottom_panel = 3)
+figure1 %<>% fill_panel(a_grob, row = 2:3)
 ```
 
 
 JPEG, PNG, and TIFF images are added via a string giving their location: either a path to a location on disk, or a URL.  
 
 ```{r}
-figure1 %<>% add_panel(
+figure1 %<>% fill_panel(
   "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Persian_Cat_%28kitten%29.jpg/657px-Persian_Cat_%28kitten%29.jpg",
-  left_panel = 2, right_panel = 3,
-  top_panel = 2, bottom_panel = 3)
+  column = 2:3,
+  row = 2:3)
 ```
 
 Once panels have been added to the figure, printing it displays the figure.

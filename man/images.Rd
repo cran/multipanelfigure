@@ -22,17 +22,14 @@ A PNG of the R logo. CC-BY-SA 4.0 The R Foundation, 2016.
 }
 \examples{
 figure <- multi_panel_figure(
-  widths = c(60, 40, 40), heights = c(40, 40, 40)
+  width = c(60, 40, 40), height = c(40, 40, 40)
 )
 image_files <- system.file("extdata", package = "multipanelfigure") \%>\%
   dir(full.names = TRUE) \%>\%
   setNames(basename(.))
 figure \%>\%
-  add_panel(image_files["farouq.tiff"]) \%>\%
-  add_panel(image_files["unicorn.svg"], left_panel = 2, right_panel = 3) \%>\%
-  add_panel(image_files["rhino.jpg"], top_panel = 2, bottom_panel = 3) \%>\%
-  add_panel(
-  image_files["Rlogo.png"],
-  left_panel = 2, right_panel = 3, top_panel = 2, bottom_panel = 3)
+  fill_panel(image_files["farouq.tiff"]) \%>\%
+  fill_panel(image_files["unicorn.svg"], column = 2:3) \%>\%
+  fill_panel(image_files["rhino.jpg"], row = 2:3) \%>\%
+  fill_panel(image_files["Rlogo.png"], column = 2:3, row = 2:3)
 }
-

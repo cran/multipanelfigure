@@ -5,48 +5,45 @@
 \alias{multipanelfigure}
 \title{multi_panel_figure}
 \usage{
-multi_panel_figure(width = NULL, widths = NULL, columns = NULL,
-  height = NULL, heights = NULL, rows = NULL, inter_row_spacing = NaN,
-  inter_column_spacing = NaN, unit = "mm", figure_name = "FigureX",
-  panel_label_type = c("upper-alpha", "lower-alpha", "decimal", "upper-roman",
-  "lower-roman", "upper-greek", "lower-greek", "none"))
+multi_panel_figure(width = "auto", columns = NULL, height = "auto",
+  rows = NULL, row_spacing = NaN, column_spacing = NaN, unit = "mm",
+  figure_name = "FigureX", panel_label_type = c("upper-alpha",
+  "lower-alpha", "decimal", "upper-roman", "lower-roman", "upper-greek",
+  "lower-greek", "none"), ...)
 }
 \arguments{
-\item{width}{Single \code{link{numeric}} defining the width of the resulting
-\code{\link[gtable]{gtable}} (unit depending on \code{unit}). See 'Details' for
-dependent and interfering parameters.}
-
-\item{widths}{\code{\link{vector}} of \code{\link{numeric}}s defining the
-actual widths of panels/columns in the resulting \code{\link[gtable]{gtable}} (unit
-depending on \code{unit}). See 'Details' for dependent and
-interfering parameters.}
+\item{width}{\code{\link{numeric}} or \code{link[grid]{unit}} defining the
+width(s) of the resulting \code{\link[gtable]{gtable}} if
+\code{length(width) == 1} or individual column widths. Units depends on
+\code{unit} if not provided as \code{\link[grid]{unit}} object. The default
+'\code{auto}' sets the parameter to the width of the currently used device.
+See 'Details' for dependent and interfering parameters.}
 
 \item{columns}{Single \code{\link{numeric}} defining the number of columns in
 the resulting \code{\link[gtable]{gtable}}. See 'Details' for dependent and
 interfering parameters.}
 
-\item{height}{Single \code{link{numeric}} defining the height of the resulting
-\code{\link[gtable]{gtable}} (unit depending on \code{unit}). See 'Details' for
-dependent and interfering parameters.}
-
-\item{heights}{\code{\link{vector}} of \code{\link{numeric}}s defining the
-actual heights of panels/rows in the resulting \code{\link[gtable]{gtable}} (unit
-depending on \code{unit}). See 'Details' for dependent and
-interfering parameters.}
+\item{height}{\code{\link{numeric}} or \code{link[grid]{unit}} defining the
+height of the resulting \code{\link[gtable]{gtable}} if
+\code{length(height) == 1} or individual row heights.nits depends on
+\code{unit} if not provided as \code{\link[grid]{unit}} object. The default
+'\code{auto}' sets the parameter to the height of the currently used device.
+See 'Details' for dependent and interfering parameters.}
 
 \item{rows}{Single \code{\link{numeric}} defining the number of rows in
 the resulting \code{\link[gtable]{gtable}}. See 'Details' for dependent and
 interfering parameters.}
 
-\item{inter_row_spacing}{The amount of white space automatically inserted
-between row panels. Defaults to \code{5 mm} unless explicitly given, in which
-case the value depends on the \code{unit} parameter. Recycled to the number
-of rows.}
+\item{row_spacing}{\code{\link{numeric}} or #' \code{\link[grid]{unit}}
+defining the amount of white space automatically inserted between row panels.
+Defaults to \code{5 mm} unless explicitly given, in which case the value may
+depend on the \code{unit} parameter. Recycled to the number of rows.}
 
-\item{inter_column_spacing}{The amount of white space automatically inserted
-between column panels. Defaults to \code{5 mm} unless explicitly given, in
-which case the value depends on the \code{unit} parameter. Recycled to the
-number of columns.}
+\item{column_spacing}{\code{\link{numeric}} or \code{\link[grid]{unit}}
+defining the amount of white space automatically inserted between column
+panels. Defaults to \code{5 mm} unless explicitly given, in which case the
+value may depends on the \code{unit} parameter. Recycled to the number of
+columns.}
 
 \item{unit}{Single \code{\link{character}} object defining the unit of all
 dimensions defined. Must satisfy \code{grid:::valid.units}.}
@@ -56,6 +53,9 @@ the resulting \code{\link[gtable]{gtable}}.}
 
 \item{panel_label_type}{A string specifying the marker style for the panel labels
 used for automated annotation.  Defaults to uppercase Latin letters.}
+
+\item{...}{Argument to accomodate deprecated arguments \code{widths} and
+\code{heights}.}
 }
 \value{
 Returns an object of class \code{multipanelfigure} as well as
@@ -76,50 +76,68 @@ infrastructure for the assembly of multipanel figures.
 \details{
 The \code{\link[gtable]{gtable}} may be constructed in two ways:
 \enumerate{
-  \item{Based on explicit width/height definitions for individual panels
-    handed to it via \code{widths} and \code{heights}.}
+  \item{Based on explicit width/height definitions for individual panels.}
   \item{Based on total figure/\code{\link[gtable]{gtable}} dimensions given by
     \code{width} and \code{height} together with the number of \code{columns}
     and \code{rows} requested.}}
 The function automatically inserts whitespace of width
-\code{inter_column_spacing} before column panels (and of height
-\code{inter_row_spacing} before row panels), which has to be considered
+\code{column_spacing} before column panels (and of height
+\code{row_spacing} before row panels), which has to be considered
 for the total dimensions of the resulting \code{\link[gtable]{gtable}}. Width
 of the \code{\link[gtable]{gtable}} in the former case, for example may be
 calculated
-\deqn{W[total] = sum(widths) + length(widths) * inter_column_spacing}
+\deqn{W[total] = sum(width) + length(width) * column_spacing}
 while width of resulting panels in the latter table construction approach may
 be calculated
-\deqn{W[panel] = (width - columns * inter_column_spacing) / columns}
+\deqn{W[panel] = (width - columns * column_spacing) / columns}
 
-The two approaches to \code{\link[gtable]{gtable}} construction require mutually
-exclusive parameter sets:
+\code{width}, \code{height}, \code{column_spacing} and
+\code{row_spacing} may be defined numerically or as
+\code{\link[grid]{unit}} objects.
+
+Earlier implementations used parameters \code{widhts} and \code{heights} as
+synonyms for \code{width} and \code{height} with length greater than one.
+These parameters have been deprecated. They continue to work, but produce
+a warning.
+
+The two approaches to \code{\link[gtable]{gtable}} construction require
+ interdepending parameter sets:
 \describe{
-  \item{Individual definition of panel dimensions:}{Requires \code{widths} and
-    \code{heights}. Excludes the use of \code{width}, \code{columns},
-    \code{heights} and \code{rows}.}
+  \item{Individual definition of panel dimensions:}{Requires \code{width} and
+    \code{height} of lengths corresponding to the number of columns/rows
+    requested. Excludes the use of \code{columns} and \code{rows}.}
   \item{Definition of global \code{\link[gtable]{gtable}}/figure dimensions:}{
-    Requires \code{width}, \code{columns}, \code{heights} and \code{rows}.
-    Excludes the use of \code{widths} and \code{heights}.}}
+    Requires \code{width}, \code{columns}, \code{height} and \code{rows} of
+    length 1.}}
 }
 \examples{
-# Figure construction based on overall dimensions
+# Figure construction based on the dimensions of the current device
 figure1 <- multi_panel_figure(
+   columns = 2,
+   rows = 2,
+   figure_name = "figure1")
+
+# With no panels, printing shows the layout
+figure1
+
+# Figure construction based on overall dimensions
+figure2 <- multi_panel_figure(
    width = 100,
    columns = 4,
    height = 90,
    rows = 6,
-   figure_name = "figure1")
-# With no panels, printing shows the layout
-figure1
+   figure_name = "figure2")
+
+# Still no panels ...
+figure2
 
 # Figure construction based on individual panel dimensions
-(figure2 <- multi_panel_figure(
-   widths = c(40,30),
-   heights = c(40,60),
-   inter_row_spacing = c(5, 1),
-   inter_column_spacing = c(0, 10),
-   figure_name = "figure2"))
+(figure3 <- multi_panel_figure(
+   width = c(40,30),
+   height = c(40,60),
+   row_spacing = c(5, 1),
+   column_spacing = c(0, 10),
+   figure_name = "figure3"))
 
 # A more involved example including filling and printing to device ...
 # Make a simple ggplot object to fill panels
@@ -128,33 +146,32 @@ ggp <- ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
 # Fill panels
 # ggplots and lattice plot objects are added directly
 # The default position is the top-left panel
-figure2 <- add_panel(figure2, ggp)
+figure3 <- fill_panel(figure3, ggp)
 # JPEG, PNG, and TIFF images are added by passing the path to their file
 jpg <- system.file("extdata/rhino.jpg", package = "multipanelfigure")
-figure2 <- add_panel(figure2, jpg, left_panel = 2)
+figure3 <- fill_panel(figure3, jpg, column = 2)
 # Plots can take up multiple panels
-figure2 <- add_panel(figure2, ggp, top_panel = 2, left_panel = 1, right_panel = 2)
+figure3 <- fill_panel(figure3, ggp, row = 2, column = 1:2)
 # Plot to appropriately sized png device
 tmpFile <- tempfile(fileext = ".png")
 ggplot2::ggsave(
-  tmpFile, figure2,
-  width = simple_grob_width(figure2, "in"),
-  height = simple_grob_height(figure2, "in"))
+  tmpFile, figure3,
+  width = figure_width(figure3, "in"),
+  height = figure_height(figure3, "in"))
 message(
   paste0("Now have a look at '",tmpFile,"' - nicely sized PNG output."))
 \donttest{ # Not testing due to use of external software
 utils::browseURL(tmpFile)
 }
 }
-\author{
-Johannes Graumann
-}
 \seealso{
-\code{\link{add_panel}} for more examples of adding panels
-\code{\link{simple_grob_width}} for inspecting figure dimensions
+\code{\link{fill_panel}} for more examples of filling panels
+\code{\link{figure_width}} for inspecting figure dimensions
 \code{\link{capture_base_plot}} for including plots created using base graphics
 \code{\link[gtable]{gtable}} for the underlying structure of a figure
 }
+\author{
+Johannes Graumann
+}
 \keyword{hplot}
 \keyword{utilities}
-

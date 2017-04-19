@@ -17,4 +17,3 @@ panel is to be placed in.}
 Functions that are no longer used or have been superceded by
 functions with underscore-separated names.
 }
-

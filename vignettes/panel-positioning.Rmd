@@ -1,0 +1,108 @@
+---
+title: "Positioning of Panels"
+author: "Richard Cotton"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Positioning of Panels}
+-->
+
+```{r, setup, echo = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+When you add a plot or image to a multi-panel figure, you can specify which panels it should cover.  The `fill_panel` function will automatically choose the next free location for you if you don't specify it.
+
+Here is a multi-panel figure with twelve panels.
+
+```{r, figure}
+library(multipanelfigure)
+library(grid)
+cols <- 4
+rows <- 3
+figure <- multi_panel_figure(
+  width = 135,
+  columns = cols,
+  height = 100,
+  rows = rows)
+```
+
+We will fill the panels with colored rectangle.  The next function is designed to change the color of the rectangle each time it is called.  Don't worry too much about its implementation.
+
+```{r, rect_grob}
+rect_grob <- function()
+{
+  this_env <- environment(rect_grob)
+  assign("current", this_env$current + 1, this_env)
+  rectGrob(gp = gpar(fill = rainbow(8)[this_env$current], alpha = 0.5))
+}
+assign("current", 0, environment(rect_grob))
+```
+
+If we don't specify which panel to fill, `fill_panel` defaults to using the top-left panel.
+
+```{r, panel1_1}
+(figure %<>% fill_panel(rect_grob()))
+```
+
+Next, the automatically chosen position is the second column on the top row.  In general, the default position moves left to right, then top to bottom &ndash; just as you would read in most Roman, Greek, or Cyrillic scripts.
+
+```{r, panel1_2}
+(figure %<>% fill_panel(rect_grob()))
+```
+
+If you want to cover multiple panels, or specify a different position, you can manually set the `row` and `column` arguments.  In the following example, `row` is set so that the rectangle covers rows one to three. The `column` argument specifies that the third column should be used; as it is of length one, the image only covers a single column.
+
+```{r, panel1.3_3}
+(figure %<>% fill_panel(rect_grob(), row = 1:3, column = 3))
+```
+
+Now that the third column in the top row has been filled, the automatic positioning fills the fourth column in the top row.
+
+```{r, panel1_4}
+(figure %<>% fill_panel(rect_grob()))
+```
+
+The top row is now completely full, so automatic positioning fills the first value in the second row.
+
+```{r, panel2_1}
+(figure %<>% fill_panel(rect_grob()))
+```
+
+Automatic positioning works independently for the row and the column.  Here we use automatic positioning for the row but specify the fourth column using `left_panel`.
+
+```{r, panel2_4}
+(figure %<>% fill_panel(rect_grob(), column = 4))
+```
+
+Likewise, we can specify the third row, but use automatic positioning for the column.
+
+```{r, panel3_1}
+(figure %<>% fill_panel(rect_grob(), row = 3))
+```
+
+If we want to overwrite a panel, by default an error will be thrown.  In this case, the panel in the second and third rows, third column have already been filled.
+
+```{r, panel2.3_2.3}
+(figure %<>% fill_panel(rect_grob(), column = 2:3, row = 3))
+```
+
+If we really want to overwrite the panel, we can set `allow_panel_overwriting = TRUE`.  The overwritten panels will still be warned about.
+
+```{r, allow_panel_overwriting}
+(figure %<>% fill_panel(rect_grob(), column = 2:3, row = 3, allow_panel_overwriting = TRUE))
+```
+
+
+<!--
+Override the background color so that the edges of plots can be seen better.
+This needs to come at the end of the document, or it will be overriden by default stylesheet.
+-->
+<style type='text/css'>
+body {
+    background-color: #f8f8f8;
+}
+</style>

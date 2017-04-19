@@ -34,4 +34,3 @@ grid::grid.draw(p2)
 \seealso{
 \code{\link[gridGraphics]{grid.echo}}, \code{\link[grid]{grid.grab}}
 }
-
