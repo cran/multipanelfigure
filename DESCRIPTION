@@ -1,8 +1,8 @@
 Package: multipanelfigure
 Type: Package
 Title: Infrastructure to Assemble Multi-Panel Figures (from Grobs)
-Version: 0.9.0
-Date: 2017-04-19
+Version: 0.10.3
+Date: 2017-08-26
 Author: Johannes Graumann [cre, aut],
     Richard Cotton [ctb]
 Maintainer: Johannes Graumann <jog2030@qatar-med.cornell.edu>
@@ -11,14 +11,14 @@ Authors@R: c(person("Johannes", "Graumann", email =
     person("Richard","Cotton", email = "richierocks@gmail.com",
     role = c("ctb")))
 Description: Tools to create a layout for figures made of multiple panels, and
-    to fill the panels with base, lattice and ggplot2 plots, grobs, and PNG,
-    JPEG, SVG and TIFF images.
+    to fill the panels with base, 'lattice', 'ggplot2' and 'ComplexHeatmap'
+    plots, grobs, and PNG, JPEG, SVG and TIFF images.
 Imports: assertive.base (>= 0.0-7), assertive.files (>= 0.0-2),
         assertive.numbers (>= 0.0-2), assertive.properties (>= 0.0-4),
-        assertive.types (>= 0.0-3), caTools (>= 1.17.1), ggplot2 (>=
-        2.2.1), grid, gridGraphics (>= 0.1-5), gtable (>= 0.2.0), jpeg
-        (>= 0.1-8), magrittr (>= 1.5), png (>= 0.1-7), rsvg (>= 1.1),
-        stats, tiff (>= 0.1-5), utils
+        assertive.types (>= 0.0-3), caTools (>= 1.17.1), ComplexHeatmap
+        (>= 1.14.0), ggplot2 (>= 2.2.1), grid, gridGraphics (>= 0.1-5),
+        gtable (>= 0.2.0), jpeg (>= 0.1-8), magrittr (>= 1.5), png (>=
+        0.1-7), rsvg (>= 1.1), stats, tiff (>= 0.1-5), utils
 Suggests: grDevices, lattice (>= 0.20-35), roxygen2 (>= 6.0.1),
         VennDiagram (>= 1.6.17), knitr, rmarkdown, markdown
 License: GPL (>= 3)
@@ -26,6 +26,6 @@ RoxygenNote: 6.0.1
 LazyData: TRUE
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2017-04-19 14:43:37 UTC; runner
+Packaged: 2017-08-26 15:21:22 UTC; runner
 Repository: CRAN
-Date/Publication: 2017-04-19 15:50:32 UTC
+Date/Publication: 2017-08-26 15:31:22 UTC

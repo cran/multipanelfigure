@@ -4,6 +4,8 @@
 #' \code{\link[gtable]{gtable}} constructed by \code{\link{multi_panel_figure}}.
 #' @details Currently supported as panel-representing objects (\code{panel}) are
 #' \enumerate{
+#'   \item{ComplexHeatmap \code{\link[ComplexHeatmap]{Heatmap}} or
+#'     \code{\link[ComplexHeatmap]{HeatmapList}} objects.}
 #'   \item{ggplot2 \code{\link[ggplot2]{ggplot}} objects.}
 #'   \item{grid \code{\link[grid]{grob}}, \code{\link[grid]{gList}}, and
 #'     \code{\link[grid]{gTree}} objects.}
@@ -26,14 +28,17 @@
 #' For animated GIFs, only the first frame will be used.
 #'
 #' \pkg{lattice}-generated \code{\link[lattice]{trellis.object}}s are converted
-#' to \code{grob}s using \code{grid.grabExpr(print(x))}, the side effects of
+#' to \code{grob}s using \code{grid.grabExpr(print(x))}, as are \code{Heatmap}
+#' and \code{HeatmapList}s from \pkg{ComplexHeatmap} - the side effects of
 #' which with respect to plot formatting are not well studied.
 #' @param figure Object of classes \code{multipanelfigure}/
 #' \code{\link[gtable]{gtable}} as produced by \code{\link{multi_panel_figure}}
 #' and representing the figure the panel is to be placed in.
 #' @param panel Single \code{\link{character}} object representing path to a
 #' bitmap image (\code{*.png}, \code{*.tiff}/\code{*.tif},
-#' \code{*.jpg}/\code{*.jpeg}), a \code{\link[ggplot2]{ggplot}} object , a
+#' \code{*.jpg}/\code{*.jpeg}), a \code{\link[ComplexHeatmap]{Heatmap}} or
+#' \code{\link[ComplexHeatmap]{HeatmapList}} object, a
+#' \code{\link[ggplot2]{ggplot}} object , a
 #' \code{\link[lattice]{trellis.object}}, a \code{\link[grid]{gList}} object or
 #' a \code{\link[grid]{grob}} object to be placed in a multipanel figure. See
 #' 'Details'.
@@ -89,6 +94,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom stats setNames
 #' @examples
+#' \donttest{ # Not testing - slow grid graphics makes CRAN timing excessive
 #' # Create the figure layout
 #' (figure <- multi_panel_figure(
 #'   width = c(30,40,60),
@@ -136,10 +142,10 @@
 #' if(requireNamespace("VennDiagram"))
 #' {
 #'   a_venn_plot <- VennDiagram::draw.pairwise.venn(50, 30, 20, ind = FALSE)
-#'   # Add the Venn diagram to the fourth row, first and second columns
-#'   (figure %<>% fill_panel(
+#'   # Add the Venn diagram to the fourth row, firstd column
+#'   figure %<>% fill_panel(
 #'     a_venn_plot,
-#'     row = 4, column = 1:2))
+#'     row = 4, column = 1)
 #' }
 #'
 #' # Incorporate a base plot figure
@@ -148,10 +154,24 @@
 #'    cor(USJudgeRatings), Rowv = FALSE, symm = TRUE, col = topo.colors(16),
 #'    distfun = function(c) as.dist(1 - c), keep.dendro = TRUE,
 #'    cexRow = 0.5, cexCol = 0.5))
-#' # Add the heatmap to the fourth row, third column
-#' (figure %<>% fill_panel(
+#' # Add the heatmap to the fourth row, second column
+#' figure %<>% fill_panel(
 #'   a_base_plot,
+#'   row = 4, column = 2)
+#'
+#' # Incorporate a ComplexHeatmap figure
+#' require(ComplexHeatmap)
+#' mat = matrix(rnorm(80, 2), 8, 10)
+#' mat = rbind(mat, matrix(rnorm(40, -2), 4, 10))
+#' rownames(mat) = letters[1:12]
+#' colnames(mat) = letters[1:10]
+#' ht = Heatmap(mat)
+#' a_complex_heatmap <- ht + ht + ht
+#' # Add the ComplexHeatmap to the fourth row, third column
+#' (figure %<>% fill_panel(
+#'   a_complex_heatmap,
 #'   row = 4, column = 3))
+#' }
 fill_panel <- function(
   figure,
   panel,
@@ -486,6 +506,7 @@ make_raster_grob_from_image <- function(image, imageDim, imageDpi, unit_to, pane
 #' @importFrom ggplot2 ggplotGrob
 #' @importFrom grid grobTree
 #' @importFrom grid grid.grabExpr
+#' @importFrom ComplexHeatmap draw
 make_grob <- function(x, unit_to, panelSize, scaling, ...){
   if(is.character(x)){ # It's a PNG/JPEG/TIFF image
     x <- use_first(x)
@@ -524,6 +545,8 @@ make_grob <- function(x, unit_to, panelSize, scaling, ...){
   } else if (inherits(x = x, what = "trellis")){
     # See http://r.789695.n4.nabble.com/lattice-grob-td1599209.html
     panel <- grid.grabExpr(print(x))
+  } else if (inherits(x = x, what = c("Heatmap", "HeatmapList"))){
+    panel <- grid.grabExpr(draw(x), wrap = TRUE, warn = FALSE)
   } else {
     stop("Class of \'panel\' is not supported.")
   }
