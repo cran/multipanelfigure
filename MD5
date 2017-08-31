@@ -1,11 +1,11 @@
-5eefb6c01e3485dec139b40aecc4c9bf *DESCRIPTION
-00fe87707ce2970cbde8a96e4ba893cd *NAMESPACE
+4c325788c774384f4358802162f970a9 *DESCRIPTION
+52596ae2035a52c7d40860dbc839f831 *NAMESPACE
 7660d04ca738d9a63d4c42a606241a48 *NEWS
 03df9a5e3c0b93d193266b89a2c7bbb0 *R/assertions.R
 8c8232fe90a3b03b5c5bcc462074e44b *R/capture_base_plot.R
 ecf9abe5dcc9a8f79fda8a686d64dd6f *R/dataset-docs.R
 0fff2aecbfecc5339519d3214d560d99 *R/deprecated-docs.R
-3ed06cc0a15f7377353aa393e2514d88 *R/fill_panel.R
+1b1c6bb46fdbc9364ceeff52111151a4 *R/fill_panel.R
 c6ed5293a36a931dd216f1122d45dddb *R/grob_dimensions.R
 67dc026aa0f60a489d8e7a82eda5a268 *R/methods.R
 4b381bdf578c2bcdf4dbd282cd8f1d1b *R/multi_panel_figure.R
@@ -20,10 +20,10 @@ d1e143f490de5a2d9e3bdb75636f4ad1 *build/vignette.rds
 ca916beef29e96b892add15c78ed84e2 *data/billing2016_suppfig4g.RData
 7b5fa39b8542a287823a29baac9d42ab *inst/doc/panel-positioning.R
 42a1ac9334826b603e0870534e12e0e3 *inst/doc/panel-positioning.Rmd
-f75c98c3cb37f5e9456c3c3d23d60c09 *inst/doc/panel-positioning.html
+534c7390163f3ac1f630a0910af8b698 *inst/doc/panel-positioning.html
 354661844bea945b84106bc7e994ddca *inst/doc/scaling-clipping-images.R
 3d721cf68701ccbca588d03860635369 *inst/doc/scaling-clipping-images.Rmd
-c2ff33ff78ef06a2d205cae344fbcc88 *inst/doc/scaling-clipping-images.html
+d5271b60469b649174191b2a27a0e2c0 *inst/doc/scaling-clipping-images.html
 8e0c51650b8a63f110fa7b09e699e9c4 *inst/extdata/Rlogo.png
 52da2db81185d571cad851fedea37e2b *inst/extdata/farouq.tiff
 291ea6fa22b0c9052933168ed9534aeb *inst/extdata/rhino.jpg

@@ -506,7 +506,6 @@ make_raster_grob_from_image <- function(image, imageDim, imageDpi, unit_to, pane
 #' @importFrom ggplot2 ggplotGrob
 #' @importFrom grid grobTree
 #' @importFrom grid grid.grabExpr
-#' @importFrom ComplexHeatmap draw
 make_grob <- function(x, unit_to, panelSize, scaling, ...){
   if(is.character(x)){ # It's a PNG/JPEG/TIFF image
     x <- use_first(x)
@@ -546,7 +545,11 @@ make_grob <- function(x, unit_to, panelSize, scaling, ...){
     # See http://r.789695.n4.nabble.com/lattice-grob-td1599209.html
     panel <- grid.grabExpr(print(x))
   } else if (inherits(x = x, what = c("Heatmap", "HeatmapList"))){
-    panel <- grid.grabExpr(draw(x), wrap = TRUE, warn = FALSE)
+    if(requireNamespace("ComplexHeatmap", quietly = TRUE)){
+      panel <- grid.grabExpr(ComplexHeatmap::draw(x), wrap = TRUE, warn = FALSE)
+    } else {
+      stop("Install \'ComplexHeatmap\' from Bioconductor first.")
+    }
   } else {
     stop("Class of \'panel\' is not supported.")
   }
