@@ -65,6 +65,7 @@
 #' @param allow_panel_overwriting A logical value. If \code{TRUE}, overwriting
 #' panels is allowed, with a warning.  Otherwise (the default) it will cause an
 #' error.
+#' @param verbose A logical value. Reduces verbosity if \code{FALSE}.
 #' @param ... Additional arguments passed to \code{\link[utils]{download.file}}
 #' when adding PNG, TIFF, or JPEG panels from URL. Also used to deal with
 #' deprecated arguments \code{top_panel}, \code{bottom_panel}, \code{left_panel}
@@ -182,6 +183,7 @@ fill_panel <- function(
   panel_clip = c("on", "off", "inherit"),
   scaling = c("none", "stretch", "fit", "shrink"),
   allow_panel_overwriting = FALSE,
+  verbose = TRUE,
   ...)
 {
   ####################################################
@@ -256,7 +258,10 @@ fill_panel <- function(
     }
     row[1] <- which(row_has_free_panel)[1]
     row %<>% as.numeric()
-    message("Setting row to ", row[1])
+    if(verbose)
+    {
+      message("Setting row to ", row[1])
+    }
   }
 
   if(length(row) == 1){
@@ -280,7 +285,10 @@ fill_panel <- function(
     }
     column[1] <- which(col_has_free_panel)[1]
     column %<>% as.numeric()
-    message("Setting column to ", column[1])
+    if(verbose)
+    {
+      message("Setting column to ", column[1])
+    }
   }
 
   if(length(column) == 1){
@@ -386,10 +394,13 @@ sanitise_file_name <- function(x)
 }
 
 #' @importFrom utils download.file
-download_file <- function(x, ...)
+download_file <- function(x, verbose = verbose, ...)
 {
   tmp <- file.path(tempdir(), sanitise_file_name(basename(x)))
-  message("Downloading to ", tmp)
+  if(verbose)
+  {
+    message("Downloading to ", tmp)
+  }
   download.file(x, tmp, mode = "wb", ...)
   tmp
 }
@@ -506,7 +517,7 @@ make_raster_grob_from_image <- function(image, imageDim, imageDpi, unit_to, pane
 #' @importFrom ggplot2 ggplotGrob
 #' @importFrom grid grobTree
 #' @importFrom grid grid.grabExpr
-make_grob <- function(x, unit_to, panelSize, scaling, ...){
+make_grob <- function(x, unit_to, panelSize, scaling, verbose = verbose, ...){
   if(is.character(x)){ # It's a PNG/JPEG/TIFF image
     x <- use_first(x)
     # Could use pathological::get_extension, but the extra package dependencies
@@ -520,7 +531,7 @@ make_grob <- function(x, unit_to, panelSize, scaling, ...){
 
     if(is_url(x))
     {
-      x <- download_file(x, ...)
+      x <- download_file(x, verbose = verbose, ...)
     }
 
     x %>%

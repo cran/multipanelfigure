@@ -10,7 +10,7 @@
 fill_panel(figure, panel, row = "auto", column = "auto", label = NULL,
   label_just = c("right", "bottom"), panel_clip = c("on", "off", "inherit"),
   scaling = c("none", "stretch", "fit", "shrink"),
-  allow_panel_overwriting = FALSE, ...)
+  allow_panel_overwriting = FALSE, verbose = TRUE, ...)
 }
 \arguments{
 \item{figure}{Object of classes \code{multipanelfigure}/
@@ -55,6 +55,8 @@ but won't enlarge it.}
 \item{allow_panel_overwriting}{A logical value. If \code{TRUE}, overwriting
 panels is allowed, with a warning.  Otherwise (the default) it will cause an
 error.}
+
+\item{verbose}{A logical value. Reduces verbosity if \code{FALSE}.}
 
 \item{...}{Additional arguments passed to \code{\link[utils]{download.file}}
 when adding PNG, TIFF, or JPEG panels from URL. Also used to deal with

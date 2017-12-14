@@ -1,7 +1,7 @@
 Package: multipanelfigure
 Type: Package
 Title: Infrastructure to Assemble Multi-Panel Figures (from Grobs)
-Version: 0.10.5
+Version: 0.10.6
 Date: 2017-08-31
 Author: Johannes Graumann [cre, aut],
     Richard Cotton [ctb]
@@ -20,13 +20,13 @@ Imports: assertive.base (>= 0.0-7), assertive.files (>= 0.0-2),
         (>= 0.1-8), magrittr (>= 1.5), png (>= 0.1-7), rsvg (>= 1.1),
         stats, tiff (>= 0.1-5), utils
 Suggests: ComplexHeatmap (>= 1.14.0), grDevices, lattice (>= 0.20-35),
-        roxygen2 (>= 6.0.1), VennDiagram (>= 1.6.17), knitr, rmarkdown,
+        roxygen2 (>= 6.0.1), VennDiagram (>= 1.6.18), knitr, rmarkdown,
         markdown
 License: GPL (>= 3)
 RoxygenNote: 6.0.1
 LazyData: TRUE
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2017-08-31 06:31:08 UTC; runner
+Packaged: 2017-12-14 14:21:33 UTC; runner
 Repository: CRAN
-Date/Publication: 2017-08-31 10:09:27 UTC
+Date/Publication: 2017-12-14 16:13:36 UTC
