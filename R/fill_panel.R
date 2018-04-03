@@ -394,7 +394,7 @@ sanitise_file_name <- function(x)
 }
 
 #' @importFrom utils download.file
-download_file <- function(x, verbose = verbose, ...)
+download_file <- function(x, verbose = TRUE, ...)
 {
   tmp <- file.path(tempdir(), sanitise_file_name(basename(x)))
   if(verbose)
@@ -517,7 +517,7 @@ make_raster_grob_from_image <- function(image, imageDim, imageDpi, unit_to, pane
 #' @importFrom ggplot2 ggplotGrob
 #' @importFrom grid grobTree
 #' @importFrom grid grid.grabExpr
-make_grob <- function(x, unit_to, panelSize, scaling, verbose = verbose, ...){
+make_grob <- function(x, unit_to, panelSize, scaling, verbose = TRUE, ...){
   if(is.character(x)){ # It's a PNG/JPEG/TIFF image
     x <- use_first(x)
     # Could use pathological::get_extension, but the extra package dependencies
