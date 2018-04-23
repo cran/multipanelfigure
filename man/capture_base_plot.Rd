@@ -31,6 +31,11 @@ p2 <- capture_base_plot({
 })
 grid::grid.draw(p2)
 }
+\references{
+Graumann, J., and Cotton, R.J. (2018). multipanelfigure: Simple
+Assembly of Multiple Plots and Images into a Compound Figure. Journal of
+Statistical Software 84. doi: 10.18637/jss.v084.c03
+}
 \seealso{
 \code{\link[gridGraphics]{grid.echo}}, \code{\link[grid]{grid.grab}}
 }

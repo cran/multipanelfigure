@@ -83,6 +83,9 @@
 #'   \item{\code{multipanelfigure.unit}:}{A single \code{\link{character}}
 #'     object storing the corresponding value given during object creation.}}
 #' @author Johannes Graumann
+#' @references Graumann, J., and Cotton, R.J. (2018). multipanelfigure: Simple
+#' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
+#' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @export
 #' @seealso \code{\link{fill_panel}} for more examples of filling panels
 #' \code{\link{figure_width}} for inspecting figure dimensions

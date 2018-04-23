@@ -6,6 +6,9 @@
 #' @return An object of class \code{gTree}.
 #' @note A side effect of this function is that plots get drawn twice: once as
 #' a base plot, and secondly as a grid plot.
+#' @references Graumann, J., and Cotton, R.J. (2018). multipanelfigure: Simple
+#' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
+#' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @seealso \code{\link[gridGraphics]{grid.echo}}, \code{\link[grid]{grid.grab}}
 #' @examples
 #' p <- capture_base_plot(hist(rnorm(1000), seq(-4, 4, 0.2)))

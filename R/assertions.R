@@ -28,6 +28,9 @@ GRID_UNITS <- c("npc", "cm", "inches", "lines", "native", "snpc", "mm", "points"
 #' @return \code{is_a_supported_unit_type} returns \code{TRUE} if the input is a
 #' supported unit type.  \code{assert_is_a_supported_unit_type} throws an error in the
 #' event of failure.
+#' @references Graumann, J., and Cotton, R.J. (2018). multipanelfigure: Simple
+#' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
+#' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @noRd
 #' @importFrom assertive.base get_name_in_parent
 #' @importFrom assertive.base false
@@ -65,6 +68,9 @@ assert_is_a_supported_unit_type <- function(x, severity = getOption("assertive.s
 #' Checks that the input is of class \code{multipanelfigure} and has the
 #' appropriate attributes.
 #' @param x Object to check.
+#' @references Graumann, J., and Cotton, R.J. (2018). multipanelfigure: Simple
+#' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
+#' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @importFrom assertive.properties assert_has_all_attributes
 #' @importFrom assertive.types assert_is_inherited_from
 #' @export

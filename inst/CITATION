@@ -1,0 +1,16 @@
+bibentry(bibtype = "Article",
+  title        = "{multipanelfigure}: Simple Assembly of Multiple Plots and Images into a Compound Figure",
+  author       = c(person(given = "Johannes",
+                          family = "Graumann"),
+                   person(given = "Richard",
+                          family = "Cotton")),
+  journal      = "Journal of Statistical Software, Code Snippets",
+  year         = "2018",
+  volume       = "84",
+  number       = "3",
+  pages        = "1--10",
+  doi          = "10.18637/jss.v084.c03",
+
+  header       = "To cite multipanelfigure in publications use:"
+)
+

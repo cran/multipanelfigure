@@ -7,6 +7,9 @@
 #' @param ... Passed from other print methods.
 #' @return The input \code{x} is invisibly returned, but the method is mostly
 #' invoked for the side effect of printing the plot to the current device.
+#' @references Graumann, J., and Cotton, R.J. (2018). multipanelfigure: Simple
+#' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
+#' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @examples
 #' p <- lattice::xyplot(dist ~ speed, cars)
 #' figure <- multi_panel_figure(

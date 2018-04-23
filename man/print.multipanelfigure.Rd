@@ -33,3 +33,8 @@ figure <- fill_panel(figure, p)
 # After a panel is added, printing shows the plot.
 print(figure) # shows plot
 }
+\references{
+Graumann, J., and Cotton, R.J. (2018). multipanelfigure: Simple
+Assembly of Multiple Plots and Images into a Compound Figure. Journal of
+Statistical Software 84. doi: 10.18637/jss.v084.c03
+}

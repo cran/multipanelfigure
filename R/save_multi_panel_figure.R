@@ -17,6 +17,9 @@
 #' Applies only to raster output types.
 #' @param ... Other arguments passed to \code{\link[ggplot2]{ggsave}}.
 #' @author Johannes Graumann
+#' @references Graumann, J., and Cotton, R.J. (2018). multipanelfigure: Simple
+#' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
+#' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @export
 #' @seealso \code{\link[ggplot2]{ggsave}}, \code{\link{figure_width}},
 #' \code{\link{figure_height}}
