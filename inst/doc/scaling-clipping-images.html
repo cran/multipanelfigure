@@ -11,7 +11,7 @@
 
 <meta name="author" content="Richard Cotton" />
 
-<meta name="date" content="2018-04-23" />
+<meta name="date" content="2018-07-06" />
 
 <title>Scaling and Clipping Images</title>
 
@@ -277,6 +277,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -306,7 +309,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Scaling and Clipping Images</h1>
 <h4 class="author"><em>Richard Cotton</em></h4>
-<h4 class="date"><em>2018-04-23</em></h4>
+<h4 class="date"><em>2018-07-06</em></h4>
 
 </div>
 
@@ -318,7 +321,7 @@ $(document).ready(function () {
 <div id="scaling-images" class="section level2">
 <h2>Scaling Images</h2>
 <p>By default, images (JPEG, PNG, BMP, SVG) that are placed in panels are not scaled. This section demonstrates the four different scaling options available.</p>
-<p>Here’s a multi-panel figure with four panels, to contain the images. In each case, we’ll use the copy of the R logo contained in the <em>multipanelfigure</em> package. This is a PNG file, 800 pixels wide and 700 pixels high, with a resolution of 300 dots per inch (DPI). That gives it a native size of 2.67&quot; by 2.33“.</p>
+<p>Here’s a multi-panel figure with four panels, to contain the images. In each case, we’ll use the copy of the R logo contained in the <em>multipanelfigure</em> package. This is a PNG file, 800 pixels wide and 700 pixels high, with a resolution of 300 dots per inch (DPI). That gives it a native size of 2.67&quot; by 2.33&quot;.</p>
 <pre class="r"><code>library(multipanelfigure)
 figure &lt;- multi_panel_figure(
   width = c(1, 5),

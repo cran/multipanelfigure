@@ -83,19 +83,16 @@ Currently supported as panel-representing objects (\code{panel}) are
   \item{Single \code{\link{character}} objects representing URLs or paths to
     readable portable network graphics (\code{*.png}), tagged image file
     format (\code{*.tiff}/\code{*.tif}), joint photographic experts group
-    (\code{*.jpg}/\code{*.jpeg}) files, graphic interchange format
-    (\code{*.gif}) or support vector graphics (\code{*.svg}) which will be
-    read and placed into panels as requested.}}
+    (\code{*.jpg}/\code{*.jpeg}) files or support vector graphics (\code{*.svg})
+     which will be read and placed into panels as requested.}}
 
 For \code{*.tiff}/\code{*.tif} and \code{*.png} files, their native
 resolution is determined from attributes in the file.  If the attributes are
 not present, then the DPI is determined by the the
 \code{multipanelfigure.defaultdpi} global option, or 300 if this has not been
-set. \code{*.jpg}/\code{*.jpeg}, \code{*.gif} and \code{*.svg} images don't
+set. \code{*.jpg}/\code{*.jpeg} and \code{*.svg} images don't
 support determining the resolution, so the resolution is always set to
 \code{multipanelfigure.defaultdpi} or 300.
-
-For animated GIFs, only the first frame will be used.
 
 \pkg{lattice}-generated \code{\link[lattice]{trellis.object}}s are converted
 to \code{grob}s using \code{grid.grabExpr(print(x))}, as are \code{Heatmap}
@@ -195,8 +192,7 @@ Statistical Software 84. doi: 10.18637/jss.v084.c03
 \seealso{
 \code{\link[gtable]{gtable}}, \code{\link{multi_panel_figure}},
 \code{\link[tiff]{readTIFF}}, \code{\link[png]{readPNG}},
-\code{\link[jpeg]{readJPEG}}, \code{\link[caTools]{read.gif}},
-\code{\link[rsvg]{rsvg}}
+\code{\link[jpeg]{readJPEG}}, \code{\link[rsvg]{rsvg}}
 }
 \author{
 Johannes Graumann, Richard Cotton

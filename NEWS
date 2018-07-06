@@ -1,3 +1,5 @@
+1.1.0 As caTools is being archived (no response of maintainer to CRAN requests),
+      caTools-dependent gif support is temporarily dropped.
 0.8.4 Added support for importing GIFs into panels.
       Different scaling options for image panels.
 0.8.3 Bug fix release to support latest version of rsvg package.
