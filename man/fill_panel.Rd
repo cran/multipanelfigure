@@ -17,9 +17,9 @@ fill_panel(figure, panel, row = "auto", column = "auto", label = NULL,
 \code{\link[gtable]{gtable}} as produced by \code{\link{multi_panel_figure}}
 and representing the figure the panel is to be placed in.}
 
-\item{panel}{Single \code{\link{character}} object representing path to a
-bitmap image (\code{*.png}, \code{*.tiff}/\code{*.tif},
-\code{*.jpg}/\code{*.jpeg}), a \code{\link[ComplexHeatmap]{Heatmap}} or
+\item{panel}{Single \code{\link{character}} object representing URL or path to a
+bitmap image accessible by \code{ImageMagick} as used through
+\code{\link[magick]{magick}}, a \code{\link[ComplexHeatmap]{Heatmap}} or
 \code{\link[ComplexHeatmap]{HeatmapList}} object, a
 \code{\link[ggplot2]{ggplot}} object , a
 \code{\link[lattice]{trellis.object}}, a \code{\link[grid]{gList}} object or
@@ -58,10 +58,8 @@ error.}
 
 \item{verbose}{A logical value. Reduces verbosity if \code{FALSE}.}
 
-\item{...}{Additional arguments passed to \code{\link[utils]{download.file}}
-when adding PNG, TIFF, or JPEG panels from URL. Also used to deal with
-deprecated arguments \code{top_panel}, \code{bottom_panel}, \code{left_panel}
-and \code{right_panel}.}
+\item{...}{Additional arguments. Used to deal with deprecated arguments
+\code{top_panel}, \code{bottom_panel}, \code{left_panel} and \code{right_panel}.}
 }
 \value{
 Returns the \code{\link[gtable]{gtable}} object fed to it
@@ -81,18 +79,14 @@ Currently supported as panel-representing objects (\code{panel}) are
     \code{\link[grid]{gTree}} objects.}
   \item{lattice \code{\link[lattice]{trellis.object}}s.}
   \item{Single \code{\link{character}} objects representing URLs or paths to
-    readable portable network graphics (\code{*.png}), tagged image file
-    format (\code{*.tiff}/\code{*.tif}), joint photographic experts group
-    (\code{*.jpg}/\code{*.jpeg}) files or support vector graphics (\code{*.svg})
-     which will be read and placed into panels as requested.}}
+    image formats accessible by \code{ImageMagick} as used through
+    \code{\link[magick]{magick}}, which will be read and placed into panels
+    as requested.}}
 
-For \code{*.tiff}/\code{*.tif} and \code{*.png} files, their native
-resolution is determined from attributes in the file.  If the attributes are
+Native resolution is determined from attributes in the file.  If the attributes are
 not present, then the DPI is determined by the the
 \code{multipanelfigure.defaultdpi} global option, or 300 if this has not been
-set. \code{*.jpg}/\code{*.jpeg} and \code{*.svg} images don't
-support determining the resolution, so the resolution is always set to
-\code{multipanelfigure.defaultdpi} or 300.
+set.
 
 \pkg{lattice}-generated \code{\link[lattice]{trellis.object}}s are converted
 to \code{grob}s using \code{grid.grabExpr(print(x))}, as are \code{Heatmap}
@@ -123,7 +117,7 @@ a_ggplot <- ggplot2::ggplot(mtcars, ggplot2::aes(disp, mpg)) +
   ggplot2::geom_point()
 figure \%<>\% fill_panel(a_ggplot)
 
-# JPEG, PNG, TIFF, and SVG images are added by passing the path to their file.
+# Bitmap images are added by passing the path to their file.
 image_files <- system.file("extdata", package = "multipanelfigure") \%>\%
   dir(full.names = TRUE) \%>\%
   setNames(basename(.))

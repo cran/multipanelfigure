@@ -5,7 +5,9 @@
 
 # multipanelfigure
 
-Tools to create a layout for figures made of multiple panels, and to fill the panels with base, lattice and ggplot2 plots, grobs, and PNG, JPEG, and TIFF images.
+Tools to create a layout for figures made of multiple panels, and to fill the panels with base,
+lattice and ggplot2 plots, grobs, and bitmap images as supported by `ImageMagick` (through the
+package `magick`).
 
 ## Installation
 
@@ -91,7 +93,8 @@ figure1 %<>% fill_panel(a_grob, row = 2:3)
 ```
 
 
-JPEG, PNG, and TIFF images are added via a string giving their location: either a path to a location on disk, or a URL.  
+Bitmap images (such as JPEG, PNG, and TIFF images) are added via a string giving their
+location: either a path to a location on disk, or a URL.  
 
 ```{r}
 figure1 %<>% fill_panel(

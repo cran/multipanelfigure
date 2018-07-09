@@ -11,18 +11,14 @@
 #'     \code{\link[grid]{gTree}} objects.}
 #'   \item{lattice \code{\link[lattice]{trellis.object}}s.}
 #'   \item{Single \code{\link{character}} objects representing URLs or paths to
-#'     readable portable network graphics (\code{*.png}), tagged image file
-#'     format (\code{*.tiff}/\code{*.tif}), joint photographic experts group
-#'     (\code{*.jpg}/\code{*.jpeg}) files or support vector graphics (\code{*.svg})
-#'      which will be read and placed into panels as requested.}}
+#'     image formats accessible by \code{ImageMagick} as used through
+#'     \code{\link[magick]{magick}}, which will be read and placed into panels
+#'     as requested.}}
 #'
-#' For \code{*.tiff}/\code{*.tif} and \code{*.png} files, their native
-#' resolution is determined from attributes in the file.  If the attributes are
+#' Native resolution is determined from attributes in the file.  If the attributes are
 #' not present, then the DPI is determined by the the
 #' \code{multipanelfigure.defaultdpi} global option, or 300 if this has not been
-#' set. \code{*.jpg}/\code{*.jpeg} and \code{*.svg} images don't
-#' support determining the resolution, so the resolution is always set to
-#' \code{multipanelfigure.defaultdpi} or 300.
+#' set.
 #'
 #' \pkg{lattice}-generated \code{\link[lattice]{trellis.object}}s are converted
 #' to \code{grob}s using \code{grid.grabExpr(print(x))}, as are \code{Heatmap}
@@ -31,9 +27,9 @@
 #' @param figure Object of classes \code{multipanelfigure}/
 #' \code{\link[gtable]{gtable}} as produced by \code{\link{multi_panel_figure}}
 #' and representing the figure the panel is to be placed in.
-#' @param panel Single \code{\link{character}} object representing path to a
-#' bitmap image (\code{*.png}, \code{*.tiff}/\code{*.tif},
-#' \code{*.jpg}/\code{*.jpeg}), a \code{\link[ComplexHeatmap]{Heatmap}} or
+#' @param panel Single \code{\link{character}} object representing URL or path to a
+#' bitmap image accessible by \code{ImageMagick} as used through
+#' \code{\link[magick]{magick}}, a \code{\link[ComplexHeatmap]{Heatmap}} or
 #' \code{\link[ComplexHeatmap]{HeatmapList}} object, a
 #' \code{\link[ggplot2]{ggplot}} object , a
 #' \code{\link[lattice]{trellis.object}}, a \code{\link[grid]{gList}} object or
@@ -63,10 +59,8 @@
 #' panels is allowed, with a warning.  Otherwise (the default) it will cause an
 #' error.
 #' @param verbose A logical value. Reduces verbosity if \code{FALSE}.
-#' @param ... Additional arguments passed to \code{\link[utils]{download.file}}
-#' when adding PNG, TIFF, or JPEG panels from URL. Also used to deal with
-#' deprecated arguments \code{top_panel}, \code{bottom_panel}, \code{left_panel}
-#' and \code{right_panel}.
+#' @param ... Additional arguments. Used to deal with deprecated arguments
+#' \code{top_panel}, \code{bottom_panel}, \code{left_panel} and \code{right_panel}.
 #' @return Returns the \code{\link[gtable]{gtable}} object fed to it
 #' (\code{figure}) with the addition of the \code{panel}.
 #' @details If the \code{row} argument is "auto", then the first row with
@@ -112,7 +106,7 @@
 #'   ggplot2::geom_point()
 #' figure %<>% fill_panel(a_ggplot)
 #'
-#' # JPEG, PNG, TIFF, and SVG images are added by passing the path to their file.
+#' # Bitmap images are added by passing the path to their file.
 #' image_files <- system.file("extdata", package = "multipanelfigure") %>%
 #'   dir(full.names = TRUE) %>%
 #'   setNames(basename(.))
@@ -404,94 +398,30 @@ download_file <- function(x, verbose = TRUE, ...)
   tmp
 }
 
-#' @importFrom png readPNG
-get_png_raster_grob <- function(x, unit_to, panelSize, scaling)
+#' @importFrom magick image_read
+#' @importFrom magick image_info
+#' @importFrom magrittr extract
+#' @importFrom magrittr extract2
+#' @importFrom stringi stri_extract_first_regex
+get_raster_grob <- function(x, unit_to, panelSize, scaling)
 {
-  image <- readPNG(x, info = TRUE)
-  imageDim <- attr(image, "info")[["dim"]]
-  imageDpi <- attr(image, "info")[["dpi"]]
+  image <- image_read(
+    path    = x,
+    density = getOption("multipanelfigure.defaultdpi", default = 300),
+    strip   = FALSE)
+  imageInfo <- image %>%
+    image_info()
+  imageDim <- imageInfo %>%
+    extract(c('width', 'height')) %>%
+    unlist()
+  imageDpi <- imageInfo %>%
+    extract2('density') %>%
+    stri_extract_first_regex('\\d+') %>%
+    as.numeric()
   if(is.null(imageDpi))
   {
-    imageDpi <- getOption("multipanelfigure.defaultdpi", 300)
+    imageDpi <- getOption("multipanelfigure.defaultdpi", default = 300)
   }
-  make_raster_grob_from_image(image, imageDim, imageDpi, unit_to, panelSize, scaling)
-}
-
-#' @importFrom tiff readTIFF
-get_tiff_raster_grob <- function(x, unit_to, panelSize, scaling)
-{
-  image <- readTIFF(x, info = TRUE)
-  imageDim <- dim(image)[2:1]
-  imageDpi <- c(attr(image, "x.resolution"), attr(image, "y.resolution"))
-  if(is.null(imageDpi))
-  {
-    imageDpi <- getOption("multipanelfigure.defaultdpi", 300)
-  }
-  make_raster_grob_from_image(image, imageDim, imageDpi, unit_to, panelSize, scaling)
-}
-
-#' @importFrom jpeg readJPEG
-get_jpeg_raster_grob <- function(x, unit_to, panelSize, scaling)
-{
-  image <- readJPEG(x)
-  imageDim <- dim(image)[2:1]
-  imageDpi <- getOption("multipanelfigure.defaultdpi", 300) # not retrieved by readJPEG
-  make_raster_grob_from_image(image, imageDim, imageDpi, unit_to, panelSize, scaling)
-}
-
-# get_gif_raster_grob <- function(x, unit_to, panelSize, scaling)
-# {
-#   gif <- caTools::read.gif(x, frame = 1)
-#   gif$col[gif$transparent + 1] <- NA
-#   image <- with(gif, col[image + 1])
-#   dim(image) <- dim(gif$image)
-#
-#   imageDim <- dim(image)[2:1]
-#   imageDpi <- getOption("multipanelfigure.defaultdpi", 300) # not contained in GIF files
-#   make_raster_grob_from_image(image, imageDim, imageDpi, unit_to, panelSize, scaling)
-# }
-
-#' @importFrom rsvg rsvg
-get_svg_raster_grob <- function(x, unit_to, panelSize, scaling)
-{
-  imageDpi <- getOption("multipanelfigure.defaultdpi", 300) # arbitrary, SVG is a vector format
-  # For stretch scaling, we can just read the file with the dimensions of the panel
-  if(scaling == "stretch")
-  {
-    imageDimPixels <- (imageDpi * panelSize) %>%
-      convertUnit("inches", valueOnly = TRUE)
-    image <- rsvg(x, imageDimPixels[1], imageDimPixels[2])
-    return(rasterGrob(
-      image,
-      width = panelSize[1],
-      height = panelSize[2]))
-  }
-  # Hope that the user has selected a portrait panel for a portrait image
-  # and vice versa
-  longestDim <- which.max(panelSize)
-  longestImageDimPixels <- (imageDpi * panelSize[longestDim]) %>%
-    convertUnit("inches", valueOnly = TRUE)
-  if(longestDim == 1L)
-  {
-    image <- rsvg(x, width = longestImageDimPixels)
-  } else # longestDim == 2L
-  {
-    image <- rsvg(x, height = longestImageDimPixels)
-  }
-  if(scaling == "none")
-  {
-    imageDim <- dim(image)[2:1]
-    imageSize <-
-      (imageDim / imageDpi) %>%
-      unit(units = "inches") %>%
-      convertUnit(unitTo = unit_to)
-    return(rasterGrob(
-      image,
-      width = imageSize[1],
-      height = imageSize[2]))
-  }
-  image <- rsvg(x, 1000) # TODO: how best to optimize this?
-  imageDim <- dim(image)[2:1] # other way round?
   make_raster_grob_from_image(image, imageDim, imageDpi, unit_to, panelSize, scaling)
 }
 
@@ -516,33 +446,12 @@ make_raster_grob_from_image <- function(image, imageDim, imageDpi, unit_to, pane
 #' @importFrom grid grobTree
 #' @importFrom grid grid.grabExpr
 make_grob <- function(x, unit_to, panelSize, scaling, verbose = TRUE, ...){
-  if(is.character(x)){ # It's a PNG/JPEG/TIFF image
+  if(is.character(x)){ # It's a path (to an image)
     x <- use_first(x)
-    # Could use pathological::get_extension, but the extra package dependencies
-    # aren't really worth it for a single use
-    file_type <- if(grepl(pattern = "\\.png$", x = x, ignore.case = TRUE)) "png" else
-      if(grepl(pattern = "\\.ti[f]{1,2}$", x = x, ignore.case = TRUE)) "tiff" else
-      if(grepl(pattern = "\\.jp[e]*g$", x = x, ignore.case = TRUE)) "jpeg" else
-      if(grepl(pattern = "\\.svg$", x = x, ignore.case = TRUE)) "svg" else
-      # if(grepl(pattern = "\\.gif$", x = x, ignore.case = TRUE)) "gif" else
-      stop("unsupported file format.")
-
-    if(is_url(x))
-    {
-      x <- download_file(x, verbose = verbose, ...)
+    if(!is_url(x)){
+      assert_all_are_readable_files(x)
     }
-
-    x %>%
-      assert_all_are_readable_files(warn_about_windows = FALSE, severity = "warning")
-
-    panel <- switch(
-      file_type,
-      png = get_png_raster_grob(x, unit_to, panelSize, scaling),
-      tiff = get_tiff_raster_grob(x, unit_to, panelSize, scaling),
-      jpeg = get_jpeg_raster_grob(x, unit_to, panelSize, scaling),
-      svg = get_svg_raster_grob(x, unit_to, panelSize, scaling)#,
-      # gif = get_gif_raster_grob(x, unit_to, panelSize, scaling)
-    )
+    panel <- get_raster_grob(x, unit_to, panelSize, scaling)
   } else if(inherits(x = x, what = "ggplot")){
     panel <- ggplotGrob(x)
   } else if(inherits(x = x, what = "gList")){

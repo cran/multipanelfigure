@@ -1,7 +1,4 @@
 
-# debugonce(multipanelfigure:::get_png_raster_grob)
-# multipanelfigure:::get_png_raster_grob("inst/extdata/Rlogo.png", "mm")
-
 to_mm <- function(x)
 {
   convertUnit(x, "mm", valueOnly = TRUE)

@@ -149,7 +149,7 @@
 #' # ggplots and lattice plot objects are added directly
 #' # The default position is the top-left panel
 #' figure3 <- fill_panel(figure3, ggp)
-#' # JPEG, PNG, and TIFF images are added by passing the path to their file
+#' # Raster images are added by passing the path to their file
 #' jpg <- system.file("extdata/rhino.jpg", package = "multipanelfigure")
 #' figure3 <- fill_panel(figure3, jpg, column = 2)
 #' # Plots can take up multiple panels

@@ -22,7 +22,7 @@ options(rstudio.markdownToHTML =
 
 ## Scaling Images
 
-By default, images (JPEG, PNG, BMP, SVG) that are placed in panels are not scaled. This section demonstrates the four different scaling options available.
+By default, images (such as JPEG, PNG, BMP, SVG) that are placed in panels are not scaled. This section demonstrates the four different scaling options available.
 
 Here's a multi-panel figure with four panels, to contain the images.  In each case, we'll use the copy of the R logo contained in the *multipanelfigure* package.  This is a PNG file, 800 pixels wide and 700 pixels high, with a resolution of 300 dots per inch (DPI).  That gives it a native size of 2.67" by 2.33".
 
