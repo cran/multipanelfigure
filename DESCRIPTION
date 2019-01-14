@@ -1,8 +1,8 @@
 Package: multipanelfigure
 Type: Package
 Title: Infrastructure to Assemble Multi-Panel Figures (from Grobs)
-Version: 2.0.0
-Date: 2018-07-09
+Version: 2.0.2
+Date: 2019-01-14
 Author: Johannes Graumann [cre, aut],
   Richard Cotton [ctb]
 Maintainer: Johannes Graumann <johannes.graumann@mpi-bn.mpg.de>
@@ -13,7 +13,7 @@ Authors@R: c(person("Johannes", "Graumann", email =
 Description: Tools to create a layout for figures made of multiple panels, and
     to fill the panels with base, 'lattice', 'ggplot2' and 'ComplexHeatmap'
     plots, grobs, as well as content from all image formats supported by
-    ImageMagick (accessed through 'magick').
+    'ImageMagick' (accessed through 'magick').
 Imports: assertive.base (>= 0.0-7), assertive.files (>= 0.0-2),
         assertive.numbers (>= 0.0-2), assertive.properties (>= 0.0-4),
         assertive.types (>= 0.0-3), ggplot2 (>= 2.2.1), grid,
@@ -23,10 +23,10 @@ Suggests: ComplexHeatmap (>= 1.17.1), grDevices, lattice (>= 0.20-35),
         roxygen2 (>= 6.0.1), VennDiagram (>= 1.6.20), knitr, rmarkdown,
         markdown
 License: GPL (>= 3)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 LazyData: TRUE
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2018-07-09 12:22:14 UTC; balin
+Packaged: 2019-01-14 13:13:27 UTC; balin
 Repository: CRAN
-Date/Publication: 2018-07-09 18:20:09 UTC
+Date/Publication: 2019-01-14 13:30:02 UTC

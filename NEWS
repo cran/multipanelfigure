@@ -1,4 +1,10 @@
-1.1.0 As caTools is being archived (no response of maintainer to CRAN requests),
+2.0.2 Clean out leftowvers from vignette 'knitr'ing (only found on CRAN
+      buildservers).
+2.0.1 Fix an erroneous (duplicated) 'VignetteIndexEntry' as requested by the
+      CRAN maintainers;
+2.0.0 Major version increment: switch all handling of external graphics to
+      'magick' (access to 'ImageMagick')
+1.1.0 As caTools is being archived (n.o response of maintainer to CRAN requests),
       caTools-dependent gif support is temporarily dropped.
 0.8.4 Added support for importing GIFs into panels.
       Different scaling options for image panels.

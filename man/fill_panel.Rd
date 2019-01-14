@@ -7,10 +7,11 @@
 \alias{add_panel}
 \title{fill_panel}
 \usage{
-fill_panel(figure, panel, row = "auto", column = "auto", label = NULL,
-  label_just = c("right", "bottom"), panel_clip = c("on", "off", "inherit"),
-  scaling = c("none", "stretch", "fit", "shrink"),
-  allow_panel_overwriting = FALSE, verbose = TRUE, ...)
+fill_panel(figure, panel, row = "auto", column = "auto",
+  label = NULL, label_just = c("right", "bottom"),
+  panel_clip = c("on", "off", "inherit"), scaling = c("none",
+  "stretch", "fit", "shrink"), allow_panel_overwriting = FALSE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{figure}{Object of classes \code{multipanelfigure}/

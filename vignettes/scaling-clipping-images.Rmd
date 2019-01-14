@@ -7,7 +7,7 @@ output: html_document
 
 <!--
 %\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Positioning of Panels}
+%\VignetteIndexEntry{Scaling and Clipping Images}
 -->
 
 ```{r, setup, echo = FALSE}

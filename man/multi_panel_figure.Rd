@@ -6,10 +6,10 @@
 \title{multi_panel_figure}
 \usage{
 multi_panel_figure(width = "auto", columns = NULL, height = "auto",
-  rows = NULL, row_spacing = NaN, column_spacing = NaN, unit = "mm",
-  figure_name = "FigureX", panel_label_type = c("upper-alpha",
-  "lower-alpha", "decimal", "upper-roman", "lower-roman", "upper-greek",
-  "lower-greek", "none"), ...)
+  rows = NULL, row_spacing = NaN, column_spacing = NaN,
+  unit = "mm", figure_name = "FigureX",
+  panel_label_type = c("upper-alpha", "lower-alpha", "decimal",
+  "upper-roman", "lower-roman", "upper-greek", "lower-greek", "none"), ...)
 }
 \arguments{
 \item{width}{\code{\link{numeric}} or \code{link[grid]{unit}} defining the
