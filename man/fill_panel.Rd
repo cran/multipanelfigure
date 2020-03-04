@@ -7,11 +7,19 @@
 \alias{add_panel}
 \title{fill_panel}
 \usage{
-fill_panel(figure, panel, row = "auto", column = "auto",
-  label = NULL, label_just = c("right", "bottom"),
-  panel_clip = c("on", "off", "inherit"), scaling = c("none",
-  "stretch", "fit", "shrink"), allow_panel_overwriting = FALSE,
-  verbose = TRUE, ...)
+fill_panel(
+  figure,
+  panel,
+  row = "auto",
+  column = "auto",
+  label = NULL,
+  label_just = c("right", "bottom"),
+  panel_clip = c("on", "off", "inherit"),
+  scaling = c("none", "stretch", "fit", "shrink"),
+  allow_panel_overwriting = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{figure}{Object of classes \code{multipanelfigure}/
@@ -185,9 +193,7 @@ Assembly of Multiple Plots and Images into a Compound Figure. Journal of
 Statistical Software 84. doi: 10.18637/jss.v084.c03
 }
 \seealso{
-\code{\link[gtable]{gtable}}, \code{\link{multi_panel_figure}},
-\code{\link[tiff]{readTIFF}}, \code{\link[png]{readPNG}},
-\code{\link[jpeg]{readJPEG}}, \code{\link[rsvg]{rsvg}}
+\code{\link[gtable]{gtable}}, \code{\link{multi_panel_figure}}
 }
 \author{
 Johannes Graumann, Richard Cotton

@@ -5,6 +5,14 @@
 \title{Superceded objects in multipanelfigure}
 \usage{
 addPanel( figure, ... )
+
+capturebaseplot( ... )
+
+multipanelfigure( ... )
+
+simplegrobheight( ... )
+
+simplegrobwidth( ... )
 }
 \arguments{
 \item{figure}{Object of classes \code{multipanelfigure}/\code{\link[gtable]{gtable}}

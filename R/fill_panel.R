@@ -72,9 +72,7 @@
 #' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
 #' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @export
-#' @seealso \code{\link[gtable]{gtable}}, \code{\link{multi_panel_figure}},
-#' \code{\link[tiff]{readTIFF}}, \code{\link[png]{readPNG}},
-#' \code{\link[jpeg]{readJPEG}}, \code{\link[rsvg]{rsvg}}
+#' @seealso \code{\link[gtable]{gtable}}, \code{\link{multi_panel_figure}}
 #' @importFrom assertive.base assert_all_are_true
 #' @importFrom assertive.base use_first
 #' @importFrom assertive.base coerce_to

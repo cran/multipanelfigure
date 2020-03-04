@@ -99,10 +99,20 @@ custom.grid.show.layout <- function (l, newpage = TRUE, vp.ex = 0.8, bg = "light
 
 round.unit.list <- function(x, digits = 0)
 {
-  saved_unit <- x %>%
-    rapply(attr, classes = "unit", which = "unit") %>%
-    unlist() %>%
-    magrittr::extract2(1)
+  if (getRversion() >= "4.0.0") {
+    unitType <- get("unitType", envir=asNamespace("grid"))
+    ## Use unitType()
+    ## Do NOT use grid::unitType() because R < 4.0.0 will
+    ## then complain about it not being exported
+    saved_unit <- x %>%
+      unitType() %>%
+      magrittr::extract2(1)
+  } else {
+    saved_unit <- x %>%
+      rapply(attr, classes = "unit", which = "unit") %>%
+      unlist() %>%
+      magrittr::extract2(1)
+  }
   x %>%
     grid::convertUnit(saved_unit) %>%
     as.numeric() %>%
@@ -113,8 +123,17 @@ round.unit.list <- function(x, digits = 0)
 
 round.unit <- function(x, digits = 0)
 {
-  saved_unit <- x %>%
-    attr("unit")
+  if (getRversion() >= "4.0.0") {
+    unitType <- get("unitType", envir=asNamespace("grid"))
+    ## Use unitType()
+    ## Do NOT use grid::unitType() because R < 4.0.0 will
+    ## then complain about it not being exported
+    saved_unit <- x %>%
+      unitType()
+  } else {
+    saved_unit <- x %>%
+      attr("unit")
+  }
   x %>%
     as.numeric() %>%
     round(digits = digits) %>%

@@ -1,3 +1,5 @@
+2.0.3 Clean out cross-referencing remnants of pre-'magick' functionality
+      (in the documentation); minor further cleanup; switch to 7.0.2;
 2.0.2 Clean out leftowvers from vignette 'knitr'ing (only found on CRAN
       buildservers).
 2.0.1 Fix an erroneous (duplicated) 'VignetteIndexEntry' as requested by the
