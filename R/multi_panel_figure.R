@@ -389,13 +389,23 @@ multipanelfigure <- function( ... ){
 }
 
 check_units <- function(x, unit){
-  if(inherits(x, "unit.list")){
+  if (getRversion() >= "4.0.0") {
+    unitType <- get("unitType", envir=asNamespace("grid"))
+    ## Use unitType()
+    ## Do NOT use grid::unitType() because R < 4.0.0 will
+    ## then complain about it not being exported
     tmp_units <- x %>%
-      rapply(attr, classes = "unit", which = "unit") %>%
+      unitType() %>%
       unique()
   } else {
-    tmp_units <- x %>%
-      attr("unit")
+    if(inherits(x, "unit.list")){
+      tmp_units <- x %>%
+        rapply(attr, classes = "unit", which = "unit") %>%
+        unique()
+    } else {
+      tmp_units <- x %>%
+        attr("unit")
+    }
   }
   if(length(tmp_units) != 1 || tmp_units != unit){
     warning("Multiple grid::units detected. Casting all to 'unit' argument ('", unit, "').")

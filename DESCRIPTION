@@ -1,7 +1,7 @@
 Package: multipanelfigure
 Type: Package
 Title: Infrastructure to Assemble Multi-Panel Figures (from Grobs)
-Version: 2.1.1
+Version: 2.1.2
 Date: 2020-03-04
 Author: Johannes Graumann [cre, aut],
   Richard Cotton [ctb]
@@ -28,6 +28,6 @@ RoxygenNote: 7.0.2
 LazyData: TRUE
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-03-04 10:24:40 UTC; root
+Packaged: 2020-03-04 11:53:21 UTC; rstudio
 Repository: CRAN
-Date/Publication: 2020-03-04 10:40:02 UTC
+Date/Publication: 2020-03-04 16:10:03 UTC
