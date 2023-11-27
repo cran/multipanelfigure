@@ -1,6 +1,5 @@
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
-[![Is the package on CRAN?](http://www.r-pkg.org/badges/version/multipanelfigure)](http://www.r-pkg.org/pkg/multipanelfigure)
-[![Build Status](https://semaphoreci.com/api/v1/richierocks/multipanelfigure/branches/master/badge.svg)](https://semaphoreci.com/richierocks/multipanelfigure)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/0.1.0/active.svg)](https://www.repostatus.org/#active)
+[![Is the package on CRAN?](https://www.r-pkg.org/badges/version/multipanelfigure)](https://www.r-pkg.org/pkg/multipanelfigure)
 [![Build status](https://ci.appveyor.com/api/projects/status/rvbkefi5rinsudlu/branch/master?svg=true)](https://ci.appveyor.com/project/richierocks/multipanelfigure/branch/master)
 
 # multipanelfigure
@@ -12,7 +11,7 @@ package `magick`).
 ## Installation
 
 To install the package, you first need the 
-[*devtools*](https://github.com/hadley/devtools) package.
+[*devtools*](https://github.com/r-lib/devtools) package.
 
 ```{r}
 install.packages("devtools")

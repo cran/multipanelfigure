@@ -119,6 +119,7 @@ The two approaches to \code{\link[gtable]{gtable}} construction require
     length 1.}}
 }
 \examples{
+\dontrun{
 # Figure construction based on the dimensions of the current device
 figure1 <- multi_panel_figure(
    columns = 2,
@@ -170,6 +171,7 @@ message(
   paste0("Now have a look at '",tmpFile,"' - nicely sized PNG output."))
 \donttest{ # Not testing due to use of external software
 utils::browseURL(tmpFile)
+}
 }
 }
 \references{

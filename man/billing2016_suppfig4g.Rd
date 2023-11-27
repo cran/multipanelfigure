@@ -4,7 +4,8 @@
 \name{billing2016_suppfig4g}
 \alias{billing2016_suppfig4g}
 \title{Mass spectrometry intensities by stem cell type}
-\format{A matrix with 13 rows and 9 columns.  Rows represent genes, columns
+\format{
+A matrix with 13 rows and 9 columns.  Rows represent genes, columns
 represent experiments and are split by:
 \enumerate{
 \item{The type of stem cell experimented on. "ESC" means embryonic stem cell;
@@ -13,7 +14,8 @@ represent experiments and are split by:
 \item{The experimental replicate.}
 }
 Values in the matrix are intensities of proteins coresponding to the genes,
-as measured by mass spectrometry.}
+as measured by mass spectrometry.
+}
 \description{
 This data was used to create Supplementary Figure 4g of Billing 2016 (see
 references).

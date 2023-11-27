@@ -93,18 +93,10 @@
 #' \code{\link[gtable]{gtable}} for the underlying structure of a figure
 #' @keywords hplot utilities
 #' @importFrom assertive.base assert_all_are_true
-#' @importFrom assertive.properties assert_is_null
-#' @importFrom assertive.properties assert_is_not_null
 #' @importFrom assertive.numbers assert_all_are_non_negative
 #' @importFrom assertive.numbers assert_all_are_positive
 #' @importFrom assertive.numbers assert_all_are_whole_numbers
 #' @importFrom assertive.numbers assert_all_are_in_range
-#' @importFrom assertive.types assert_is_a_bool
-#' @importFrom assertive.types assert_is_numeric
-#' @importFrom assertive.types assert_is_a_string
-#' @importFrom assertive.types assert_is_a_number
-#' @importFrom assertive.types assert_is_numeric
-#' @importFrom assertive.types assert_is_character
 #' @importFrom grDevices dev.size
 #' @importFrom gtable gtable
 #' @importFrom gtable gtable_add_col_space
@@ -113,6 +105,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom magrittr %<>%
 #' @examples
+#' \dontrun{
 #' # Figure construction based on the dimensions of the current device
 #' figure1 <- multi_panel_figure(
 #'    columns = 2,
@@ -164,6 +157,7 @@
 #'   paste0("Now have a look at '",tmpFile,"' - nicely sized PNG output."))
 #' \donttest{ # Not testing due to use of external software
 #' utils::browseURL(tmpFile)
+#' }
 #' }
 multi_panel_figure <- function(
   width = "auto",

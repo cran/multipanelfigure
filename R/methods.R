@@ -21,7 +21,6 @@
 #' figure <- fill_panel(figure, p)
 #' # After a panel is added, printing shows the plot.
 #' print(figure) # shows plot
-#' @importFrom assertive.properties is_empty
 #' @importFrom grid grid.newpage
 #' @importFrom grid grid.draw
 #' @importFrom grid grid.layout

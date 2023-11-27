@@ -15,7 +15,6 @@
 #' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
 #' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @seealso \code{\link{multi_panel_figure}}, \code{\link{save_multi_panel_figure}}
-#' @importFrom assertive.types assert_is_inherited_from
 #' @importFrom grid convertUnit
 #' @importFrom grid heightDetails
 #' @importFrom grid widthDetails

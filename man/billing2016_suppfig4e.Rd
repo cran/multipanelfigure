@@ -4,7 +4,8 @@
 \name{billing2016_suppfig4e}
 \alias{billing2016_suppfig4e}
 \title{Mass spectrometry intensities by stem cell type and organelle}
-\format{A data frame with 81 rows and the following columns:
+\format{
+A data frame with 81 rows and the following columns:
 \describe{
 \item{GeneName}{A factor with three levels naming genes that have interesting
 properties.}
@@ -18,7 +19,8 @@ mesenchymal stem cell derived from bone marrow.}
 chromatin, "Cyt" means cytosol, "Nuc" means nucleus.}
 \item{Replicate}{An integer specifying the experimental replicate.}
 \item{Experiment}{The interaction of StemCellType, Organelle and Replicate.}
-}}
+}
+}
 \description{
 This data was used to create Supplementary Figure 4e of Billing 2016 (see
 references).

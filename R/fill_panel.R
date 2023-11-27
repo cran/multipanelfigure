@@ -80,7 +80,6 @@
 #' @importFrom assertive.numbers assert_all_are_whole_numbers
 #' @importFrom assertive.numbers assert_all_are_in_closed_range
 #' @importFrom assertive.numbers assert_all_are_less_than_or_equal_to
-#' @importFrom assertive.types assert_is_a_number
 #' @importFrom grid textGrob
 #' @importFrom gtable gtable_add_grob
 #' @importFrom magrittr %>%

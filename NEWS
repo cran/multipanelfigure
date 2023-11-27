@@ -1,14 +1,65 @@
-2.0.3 Clean out cross-referencing remnants of pre-'magick' functionality
-      (in the documentation); minor further cleanup; switch to 7.0.2;
-2.0.2 Clean out leftowvers from vignette 'knitr'ing (only found on CRAN
-      buildservers).
-2.0.1 Fix an erroneous (duplicated) 'VignetteIndexEntry' as requested by the
-      CRAN maintainers;
-2.0.0 Major version increment: switch all handling of external graphics to
-      'magick' (access to 'ImageMagick')
-1.1.0 As caTools is being archived (n.o response of maintainer to CRAN requests),
-      caTools-dependent gif support is temporarily dropped.
-0.8.4 Added support for importing GIFs into panels.
-      Different scaling options for image panels.
-0.8.3 Bug fix release to support latest version of rsvg package.
-0.8.2 First public release.
+2.1.5
+
+  - Fix another URL(devtools);
+
+  - Render `images` and `multi_panel_figure` examples in dataset-docs.R `dontrun`
+    to avoid note on CRAN;
+
+2.1.4
+
+  - Fix maintainer address to new JG affiliation (oversight in 2.1.3);
+
+  - Fix a bunch of URLS;
+
+2.1.3
+
+  - Maintenance release in reaction to an archiving of `assertive.properties`,
+    `assertive.strings`, `assertive.types`; R.C. as a results bumped up to
+    `aut`;
+
+  - Fix affiliation of JG;
+
+  - Switch to roxygen2 7.2.3;
+
+2.0.3
+
+  - Clean out cross-referencing remnants of pre-'magick' functionality
+    (in the documentation);
+
+  - minor further cleanup;
+
+  - switch to roxygen2 7.0.2;
+
+2.0.2
+
+  - Clean out leftowvers from vignette 'knitr'ing (only found on CRAN
+    buildservers).
+
+2.0.1
+
+  - Fix an erroneous (duplicated) 'VignetteIndexEntry' as requested by the
+    CRAN maintainers;
+
+2.0.0
+
+  - Major version increment: switch all handling of external graphics to
+    'magick' (access to 'ImageMagick')
+
+1.1.0
+
+  - As caTools is being archived (n.o response of maintainer to CRAN requests),
+    caTools-dependent gif support is temporarily dropped.
+
+0.8.4
+
+  - Added support for importing GIFs into panels.
+
+  - Different scaling options for image panels.
+
+0.8.3
+
+  - Bug fix release to support latest version of rsvg package.
+
+0.8.2
+
+  - First public release.

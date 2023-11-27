@@ -34,7 +34,6 @@ GRID_UNITS <- c("npc", "cm", "inches", "lines", "native", "snpc", "mm", "points"
 #' @noRd
 #' @importFrom assertive.base get_name_in_parent
 #' @importFrom assertive.base false
-#' @importFrom assertive.types is_a_string
 is_a_supported_unit_type <- function(x, .xname = get_name_in_parent(x))
 {
   # For more general use, this should be vectorised, but this is intended for
@@ -71,8 +70,6 @@ assert_is_a_supported_unit_type <- function(x, severity = getOption("assertive.s
 #' @references Graumann, J., and Cotton, R.J. (2018). multipanelfigure: Simple
 #' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
 #' Statistical Software 84. doi: 10.18637/jss.v084.c03
-#' @importFrom assertive.properties assert_has_all_attributes
-#' @importFrom assertive.types assert_is_inherited_from
 #' @export
 assert_is_multipanelfigure <- function(x)
 {

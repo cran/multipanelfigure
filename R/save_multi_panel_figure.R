@@ -25,8 +25,6 @@
 #' \code{\link{figure_height}}
 #' @importFrom assertive.numbers assert_all_are_greater_than
 #' @importFrom assertive.numbers assert_all_are_whole_numbers
-#' @importFrom assertive.types assert_is_a_number
-#' @importFrom assertive.types assert_is_a_string
 #' @importFrom ggplot2 ggsave
 #' @importFrom magrittr %>%
 #' @examples
