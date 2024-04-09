@@ -23,10 +23,6 @@
 #' @export
 #' @seealso \code{\link[ggplot2]{ggsave}}, \code{\link{figure_width}},
 #' \code{\link{figure_height}}
-#' @importFrom assertive.numbers assert_all_are_greater_than
-#' @importFrom assertive.numbers assert_all_are_whole_numbers
-#' @importFrom ggplot2 ggsave
-#' @importFrom magrittr %>%
 #' @examples
 #' # Create the figure layout
 #' (figure <- multi_panel_figure(
@@ -72,7 +68,7 @@ save_multi_panel_figure <- function(
   ##############
 
   filename %>%
-    ggsave(
+    ggplot2::ggsave(
       plot = figure,
       height = figure %>%
         figure_height,

@@ -1,7 +1,7 @@
 
 to_mm <- function(x)
 {
-  convertUnit(x, "mm", valueOnly = TRUE)
+  grid::convertUnit(x, "mm", valueOnly = TRUE)
 }
 
 resizeImage <- function(scaling, imageSize, panelSize)
@@ -14,7 +14,7 @@ resizeImage <- function(scaling, imageSize, panelSize)
   switch(
     scaling,
     none    = imageSize,
-    stretch = unit(c(1, 1), "npc"),
+    stretch = grid::unit(c(1, 1), "npc"),
     fit     = {
       sf <- min(
         to_mm(panelSize[1]) / to_mm(imageSize[1]),

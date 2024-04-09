@@ -129,7 +129,7 @@ figure \%<>\% fill_panel(a_ggplot)
 # Bitmap images are added by passing the path to their file.
 image_files <- system.file("extdata", package = "multipanelfigure") \%>\%
   dir(full.names = TRUE) \%>\%
-  setNames(basename(.))
+  magrittr::set_names(basename(.))
 
 # Add the JPEG to the top row, third column
 figure \%<>\% fill_panel(image_files["rhino.jpg"], column = 3)

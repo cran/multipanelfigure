@@ -20,8 +20,6 @@
 #'   title("One to five")
 #' })
 #' grid::grid.draw(p2)
-#' @importFrom gridGraphics grid.echo
-#' @importFrom grid grid.grab
 #' @export
 capture_base_plot <- function(expr)
 {

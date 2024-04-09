@@ -1,3 +1,11 @@
+2.1.6
+
+  - Maintenance relaase in response to the apparent abandonment of the entire
+    `assertive` family of packages (see 2.1.3);
+
+  - Complete transition to `<Pkg>::<Fct>` style of import management instead of
+    explicit `roxygen2` `@importFrom` statements;
+
 2.1.5
 
   - Fix another URL(devtools);

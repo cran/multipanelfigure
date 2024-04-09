@@ -32,8 +32,6 @@ GRID_UNITS <- c("npc", "cm", "inches", "lines", "native", "snpc", "mm", "points"
 #' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
 #' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @noRd
-#' @importFrom assertive.base get_name_in_parent
-#' @importFrom assertive.base false
 is_a_supported_unit_type <- function(x, .xname = get_name_in_parent(x))
 {
   # For more general use, this should be vectorised, but this is intended for
@@ -50,8 +48,6 @@ is_a_supported_unit_type <- function(x, .xname = get_name_in_parent(x))
   TRUE
 }
 
-#' @importFrom assertive.base assert_engine
-#' @importFrom assertive.base get_name_in_parent
 assert_is_a_supported_unit_type <- function(x, severity = getOption("assertive.severity", "stop"))
 {
   assert_engine(

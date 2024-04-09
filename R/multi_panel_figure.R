@@ -92,18 +92,6 @@
 #' \code{\link{capture_base_plot}} for including plots created using base graphics
 #' \code{\link[gtable]{gtable}} for the underlying structure of a figure
 #' @keywords hplot utilities
-#' @importFrom assertive.base assert_all_are_true
-#' @importFrom assertive.numbers assert_all_are_non_negative
-#' @importFrom assertive.numbers assert_all_are_positive
-#' @importFrom assertive.numbers assert_all_are_whole_numbers
-#' @importFrom assertive.numbers assert_all_are_in_range
-#' @importFrom grDevices dev.size
-#' @importFrom gtable gtable
-#' @importFrom gtable gtable_add_col_space
-#' @importFrom gtable gtable_add_row_space
-#' @importFrom grid is.unit
-#' @importFrom magrittr %>%
-#' @importFrom magrittr %<>%
 #' @examples
 #' \dontrun{
 #' # Figure construction based on the dimensions of the current device
@@ -204,15 +192,15 @@ multi_panel_figure <- function(
   assert_is_a_supported_unit_type(unit)
 
   if(identical(width, "auto")){
-    width <- dev.size(units = "cm")[1] %>%
-      unit(units = "cm") %>%
-      convertUnit ("mm")
+    width <- grDevices::dev.size(units = "cm")[1] %>%
+      grid::unit(units = "cm") %>%
+      grid::convertUnit("mm")
   }
 
   if(identical(height, "auto")){
-    height <- dev.size(units = "cm")[2] %>%
-      unit(units = "cm") %>%
-      convertUnit ("mm")
+    height <- grDevices::dev.size(units = "cm")[2] %>%
+      grid::unit(units = "cm") %>%
+      grid::convertUnit("mm")
   }
 
   # Check passed arguments
@@ -236,8 +224,8 @@ multi_panel_figure <- function(
 
   assert_is_numeric(width)
   assert_all_are_positive(width)
-  if(!is.unit(width)){
-    width <- unit(width, unit)
+  if(!grid::is.unit(width)){
+    width <- grid::unit(width, unit)
   }
   if(length(width) == 1){
     assert_is_not_null(columns)
@@ -255,8 +243,8 @@ multi_panel_figure <- function(
 
   assert_is_numeric(height)
   assert_all_are_positive(height)
-  if(!is.unit(height)){
-    height <- unit(height, unit)
+  if(!grid::is.unit(height)){
+    height <- grid::unit(height, unit)
   }
   if(length(height) == 1){
     assert_is_not_null(rows)
@@ -275,8 +263,8 @@ multi_panel_figure <- function(
   check_units(width, unit)
   check_units(height, unit)
 
-  tmp_widths %<>% convertUnit(unit)
-  tmp_heights %<>% convertUnit(unit)
+  tmp_widths %<>% grid::convertUnit(unit)
+  tmp_heights %<>% grid::convertUnit(unit)
 
   # TODO: support all CSS ordered list marker styles
   # greek, hebrew, georgian, hiragana, etc. still TODO
@@ -288,7 +276,7 @@ multi_panel_figure <- function(
   ####################
   # Basic layout
   tmp_gtable <-
-    gtable(
+    gtable::gtable(
       widths = tmp_widths,
       heights = tmp_heights,
       name = figure_name) %>%
@@ -321,8 +309,8 @@ fix_panel_spacing_arg <- function(x, n, u)
   assert_is_numeric(x)
   assert_all_are_non_negative(x, na_ignore = TRUE)
   x <- rep_len(x, n)
-  if(!is.unit(x)){
-    x <- unit(x, u)
+  if(!grid::is.unit(x)){
+    x <- grid::unit(x, u)
   }
   x
 }

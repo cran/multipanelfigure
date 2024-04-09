@@ -73,17 +73,6 @@
 #' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @export
 #' @seealso \code{\link[gtable]{gtable}}, \code{\link{multi_panel_figure}}
-#' @importFrom assertive.base assert_all_are_true
-#' @importFrom assertive.base use_first
-#' @importFrom assertive.base coerce_to
-#' @importFrom assertive.base print_and_capture
-#' @importFrom assertive.numbers assert_all_are_whole_numbers
-#' @importFrom assertive.numbers assert_all_are_in_closed_range
-#' @importFrom assertive.numbers assert_all_are_less_than_or_equal_to
-#' @importFrom grid textGrob
-#' @importFrom gtable gtable_add_grob
-#' @importFrom magrittr %>%
-#' @importFrom stats setNames
 #' @examples
 #' \donttest{ # Not testing - slow grid graphics makes CRAN timing excessive
 #' # Create the figure layout
@@ -106,7 +95,7 @@
 #' # Bitmap images are added by passing the path to their file.
 #' image_files <- system.file("extdata", package = "multipanelfigure") %>%
 #'   dir(full.names = TRUE) %>%
-#'   setNames(basename(.))
+#'   magrittr::set_names(basename(.))
 #'
 #' # Add the JPEG to the top row, third column
 #' figure %<>% fill_panel(image_files["rhino.jpg"], column = 3)
@@ -326,7 +315,7 @@ fill_panel <- function(
   # Get the "real" spans (including inter-panel spaces)
   panel_placing <-
     2 * c(row[1], row[2], column[1], column[2]) %>%
-    setNames(c("top", "bottom", "left", "right"))
+    magrittr::set_names(c("top", "bottom", "left", "right"))
   label_placing <- panel_placing[c("top", "left")] - 1
 
   # Get the available space to contain the panel
@@ -334,10 +323,10 @@ fill_panel <- function(
     attr("multipanelfigure.unit")
   panelWidth <- figure$widths[panel_placing["left"]:panel_placing["right"]] %>%
     sum %>%
-    convertUnit(unitTo = figureUnit)
+    grid::convertUnit(unitTo = figureUnit)
   panelHeight <- figure$heights[panel_placing["top"]:panel_placing["bottom"]] %>%
     sum %>%
-    convertUnit(unitTo = figureUnit)
+    grid::convertUnit(unitTo = figureUnit)
 
   # Make the panel grob
   panel <- make_grob(
@@ -347,12 +336,12 @@ fill_panel <- function(
     scaling = scaling)
 
   # Create panel label grob
-  panel_label <- textGrob(
+  panel_label <- grid::textGrob(
     label = label,
     x = 1, y = 0,
     just = label_just)
   # Add grobs to gtable
-  figure <- gtable_add_grob(
+  figure <- gtable::gtable_add_grob(
     figure,
     grobs = panel,
     t = panel_placing[["top"]],
@@ -361,7 +350,7 @@ fill_panel <- function(
     r = panel_placing[["right"]],
     clip = panel_clip)
 
-  figure <- gtable_add_grob(
+  figure <- gtable::gtable_add_grob(
     figure,
     grobs = panel_label,
     t = label_placing[["top"]],
@@ -383,7 +372,6 @@ sanitise_file_name <- function(x)
   gsub('[\\/:*?"<>|]+', '_', x)
 }
 
-#' @importFrom utils download.file
 download_file <- function(x, verbose = TRUE, ...)
 {
   tmp <- file.path(tempdir(), sanitise_file_name(basename(x)))
@@ -391,29 +379,24 @@ download_file <- function(x, verbose = TRUE, ...)
   {
     message("Downloading to ", tmp)
   }
-  download.file(x, tmp, mode = "wb", ...)
+  utils::download.file(x, tmp, mode = "wb", ...)
   tmp
 }
 
-#' @importFrom magick image_read
-#' @importFrom magick image_info
-#' @importFrom magrittr extract
-#' @importFrom magrittr extract2
-#' @importFrom stringi stri_extract_first_regex
 get_raster_grob <- function(x, unit_to, panelSize, scaling)
 {
-  image <- image_read(
+  image <- magick::image_read(
     path    = x,
     density = getOption("multipanelfigure.defaultdpi", default = 300),
     strip   = FALSE)
   imageInfo <- image %>%
-    image_info()
+    magick::image_info()
   imageDim <- imageInfo %>%
-    extract(c('width', 'height')) %>%
+    magrittr::extract(c('width', 'height')) %>%
     unlist()
   imageDpi <- imageInfo %>%
-    extract2('density') %>%
-    stri_extract_first_regex('\\d+') %>%
+    magrittr::extract2('density') %>%
+    stringi::stri_extract_first_regex('\\d+') %>%
     as.numeric()
   if(is.null(imageDpi))
   {
@@ -422,26 +405,19 @@ get_raster_grob <- function(x, unit_to, panelSize, scaling)
   make_raster_grob_from_image(image, imageDim, imageDpi, unit_to, panelSize, scaling)
 }
 
-#' @importFrom grid unit
-#' @importFrom grid convertUnit
-#' @importFrom grid rasterGrob
 make_raster_grob_from_image <- function(image, imageDim, imageDpi, unit_to, panelSize, scaling)
 {
   imageSize <-
     (imageDim / imageDpi) %>%
-    unit(units = "inches") %>%
-    convertUnit(unitTo = unit_to)
+    grid::unit(units = "inches") %>%
+    grid::convertUnit(unitTo = unit_to)
   newSize <- resizeImage(scaling, imageSize, panelSize)
-  rasterGrob(
+  grid::rasterGrob(
     image,
     width = newSize[1],
     height = newSize[2])
 }
 
-#' @importFrom assertive.files assert_all_are_readable_files
-#' @importFrom ggplot2 ggplotGrob
-#' @importFrom grid grobTree
-#' @importFrom grid grid.grabExpr
 make_grob <- function(x, unit_to, panelSize, scaling, verbose = TRUE, ...){
   if(is.character(x)){ # It's a path (to an image)
     x <- use_first(x)
@@ -450,18 +426,18 @@ make_grob <- function(x, unit_to, panelSize, scaling, verbose = TRUE, ...){
     }
     panel <- get_raster_grob(x, unit_to, panelSize, scaling)
   } else if(inherits(x = x, what = "ggplot")){
-    panel <- ggplotGrob(x)
+    panel <- ggplot2::ggplotGrob(x)
   } else if(inherits(x = x, what = "gList")){
     # Convert gList to gTree so the automatic labelling works
-    panel <- do.call(grobTree, x)
+    panel <- do.call(grid::grobTree, x)
   } else if(inherits(x = x, what = c("grob", "gTree"))){
     panel <- x
   } else if (inherits(x = x, what = "trellis")){
     # See http://r.789695.n4.nabble.com/lattice-grob-td1599209.html
-    panel <- grid.grabExpr(print(x))
+    panel <- grid::grid.grabExpr(print(x))
   } else if (inherits(x = x, what = c("Heatmap", "HeatmapList"))){
     if(requireNamespace("ComplexHeatmap", quietly = TRUE)){
-      panel <- grid.grabExpr(ComplexHeatmap::draw(x), wrap = TRUE, warn = FALSE)
+      panel <- grid::grid.grabExpr(ComplexHeatmap::draw(x), wrap = TRUE, warn = FALSE)
     } else {
       stop("Install \'ComplexHeatmap\' from Bioconductor first.")
     }

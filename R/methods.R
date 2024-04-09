@@ -21,24 +21,21 @@
 #' figure <- fill_panel(figure, p)
 #' # After a panel is added, printing shows the plot.
 #' print(figure) # shows plot
-#' @importFrom grid grid.newpage
-#' @importFrom grid grid.draw
-#' @importFrom grid grid.layout
 #' @export
 print.multipanelfigure <- function(x, newpage = TRUE, ...)
 {
   if(is_empty(x$grobs))
   {
-      grid.layout(nrow = nrow(x), heights = x$heights, ncol = ncol(x),
+      grid::grid.layout(nrow = nrow(x), heights = x$heights, ncol = ncol(x),
                   widths = x$widths, respect = x$respect) %>%
       custom.grid.show.layout()
   } else
   {
     if(newpage)
     {
-      grid.newpage()
+      grid::grid.newpage()
     }
-    grid.draw(x)
+    grid::grid.draw(x)
   }
   invisible(x) # For consistency with other print methods
 }
@@ -64,29 +61,29 @@ custom.grid.show.layout <- function (l, newpage = TRUE, vp.ex = 0.8, bg = "light
     if (cell.label)
       {
         if(
-          assertive.numbers::is_divisible_by(i,2) &&
-          assertive.numbers::is_divisible_by(j,2))
+          is_divisible_by(i,2) &&
+          is_divisible_by(j,2))
         {
           grid::grid.text(paste0("(", i/2, ", ", j/2, ")"), gp = grid::gpar(col = label.col))
         }
       }
     if (j == 1)
       grid::grid.text(as.character(round(l$heights[i, top = FALSE], digits = 2)),
-                gp = gp.red, just = c("right", "centre"), x = unit(-0.05,
-                                                                   "inches"), y = unit(0.5, "npc"), rot = 0)
+                gp = gp.red, just = c("right", "centre"), x = grid::unit(-0.05,
+                                                                   "inches"), y = grid::unit(0.5, "npc"), rot = 0)
     if (i == l$nrow)
       grid::grid.text(as.character(round(l$widths[j, top = FALSE], digits = 2)),
-                gp = gp.red, just = c("centre", "top"), x = unit(0.5,
-                                                                 "npc"), y = unit(-0.05, "inches"), rot = 0)
+                gp = gp.red, just = c("centre", "top"), x = grid::unit(0.5,
+                                                                 "npc"), y = grid::unit(-0.05, "inches"), rot = 0)
     if (j == l$ncol)
       grid::grid.text(as.character(round(l$heights[i, top = FALSE], digits = 2)),
-                gp = gp.red, just = c("left", "centre"), x = unit(1,
-                                                                  "npc") + unit(0.05, "inches"), y = unit(0.5,
+                gp = gp.red, just = c("left", "centre"), x = grid::unit(1,
+                                                                  "npc") + grid::unit(0.05, "inches"), y = grid::unit(0.5,
                                                                                                           "npc"), rot = 0)
     if (i == 1)
       grid::grid.text(as.character(round(l$widths[j, top = FALSE], digits = 2)),
-                gp = gp.red, just = c("centre", "bottom"), x = unit(0.5,
-                                                                    "npc"), y = unit(1, "npc") + unit(0.05, "inches"),
+                gp = gp.red, just = c("centre", "bottom"), x = grid::unit(0.5,
+                                                                    "npc"), y = grid::unit(1, "npc") + grid::unit(0.05, "inches"),
                 rot = 0)
     grid::popViewport()
   }

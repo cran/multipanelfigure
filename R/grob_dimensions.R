@@ -15,10 +15,6 @@
 #' Assembly of Multiple Plots and Images into a Compound Figure. Journal of
 #' Statistical Software 84. doi: 10.18637/jss.v084.c03
 #' @seealso \code{\link{multi_panel_figure}}, \code{\link{save_multi_panel_figure}}
-#' @importFrom grid convertUnit
-#' @importFrom grid heightDetails
-#' @importFrom grid widthDetails
-#' @importFrom magrittr %>%
 #' @examples
 #' # Get dimensions of a grid grob
 #' a_circle <- grid::circleGrob(x = 15, y = 30, r = 15, default.unit = "mm")
@@ -52,8 +48,8 @@ figure_width <- function(grob, unit_to = "mm"){
   assert_is_a_supported_unit_type(unit_to)
 
   # Process
-  convertUnit(
-    widthDetails(grob),
+  grid::convertUnit(
+    grid::widthDetails(grob),
     unitTo = unit_to,
     valueOnly = TRUE)
 }
@@ -65,8 +61,8 @@ figure_height <- function(grob, unit_to = "mm"){
   assert_is_a_supported_unit_type(unit_to)
 
   # Process
-  convertUnit(
-    heightDetails(grob),
+  grid::convertUnit(
+    grid::heightDetails(grob),
     unitTo = unit_to,
     valueOnly = TRUE)
 }
